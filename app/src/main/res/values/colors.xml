@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
+    <color name="light_black">#404040</color>
+
+
+        <!--    Colors Used-->
+
+    <color name="localBackground">#827b92</color>
+    <color name="remoteBackground">#484258</color>
+
+   <color name="themeColor">#6FCFB9</color>
+   <color name="logout">#CE4E4F</color>
+   <color name="backgroundColor">#8BD9C7</color>
+   <color name="viewColor">#AAAAAA</color>
+   <color name="viewColors">#DEDEDE</color>
+   <color name="textColor">#99000000</color>
+   <color name="red">#FF0000</color>
+    <color name="view_Background">#EAEAEA</color>
+    <color name="light_grey">#DEDEDE</color>
+    <color name="side_menu_view">#F0F0F0</color>
+    <color name="side_menu_text_color">#757575</color>
+
+    <color name="light_color">#6C6C6C</color>
+    <color name="light_gray">#BFBFBF</color>
+    <color name="text_color">#6FCFB9</color>
+
+
+    <!-- Story Display Progress-->
+    <color name="progress_primary">@color/white</color>
+    <color name="progress_secondary">@color/gray_scale</color>
+    <color name="progress_max_active">@color/white</color>
+
+    <color name="gray_scale">#8AFFFFFF</color>
+    <color name="shimmer_placeholder">#dddddd</color>
+    <color name="customize_background">#898788</color>
+    <color name="golden_color">#FFD700</color>
+
+
+</resources>

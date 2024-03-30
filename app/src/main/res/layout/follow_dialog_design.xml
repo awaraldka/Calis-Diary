@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="68dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/white_corner_bg"
+        android:orientation="vertical">
+
+       <LinearLayout
+           android:id="@+id/header"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="@dimen/_10sdp"
+           android:layout_marginBottom="@dimen/_10sdp"
+           android:layout_marginHorizontal="@dimen/_30sdp">
+           <RelativeLayout
+               android:layout_width="@dimen/_45sdp"
+               android:layout_height="@dimen/_35sdp">
+               <de.hdodenhof.circleimageview.CircleImageView
+                   android:id="@+id/petImage"
+                   android:layout_width="@dimen/_35sdp"
+                   android:layout_height="@dimen/_35sdp"/>
+               <de.hdodenhof.circleimageview.CircleImageView
+                   android:id="@+id/userImage"
+                   android:layout_width="@dimen/_20sdp"
+                   android:layout_height="@dimen/_20sdp"
+                   android:layout_alignParentBottom="true"
+                   android:layout_alignParentRight="true"
+                   />
+           </RelativeLayout>
+
+           <TextView
+               android:id="@+id/userName"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:gravity="center_vertical"
+               android:layout_marginLeft="@dimen/_10sdp"
+               android:fontFamily="@font/poppins_semi_bold"
+               android:textSize="18dp"
+               android:textColor="#99000000"/>
+       </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/restrict"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_below="@+id/header"
+            android:background="@drawable/blue_border_background">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:drawableRight="@drawable/right_arrow"
+                android:padding="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/restrict"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/follow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_below="@+id/restrict"
+            android:background="@drawable/blue_border_background">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:drawableRight="@drawable/right_arrow"
+                android:padding="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/follow"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_below="@+id/follow"
+            android:background="@drawable/blue_border_background">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:drawableRight="@drawable/right_arrow"
+                android:padding="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Mute"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+
+
+        <LinearLayout
+            android:id="@+id/subCategoryNameClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_margin="@dimen/_5sdp"
+            android:background="@drawable/button_background">
+
+            <TextView
+                android:id="@+id/subCategoryName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:singleLine="true"
+                android:paddingHorizontal="@dimen/_15sdp"
+                android:paddingVertical="@dimen/_6sdp"
+                android:text="@string/rew_flesh"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8sdp" />
+        </LinearLayout>
+
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".UI.Activities.subscription.CardDetailsActivity">
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Please input payment card details, such as card number, expiration date,CVV and card holder name code for process to facilitate secure online payments and complete transactions with ease."
+                android:textStyle="bold" />
+
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:src="@drawable/payment_card"
+                android:layout_marginTop="@dimen/_10sdp"
+                />
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Card number"
+                android:layout_marginLeft="@dimen/_2sdp"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/_12sdp" />
+
+            <EditText
+                android:id="@+id/etCardN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_2sdp"
+                android:layout_marginRight="@dimen/_2sdp"
+                android:background="@drawable/white_border_background"
+                android:maxLength="16"
+                android:singleLine="true"
+                android:inputType="number"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="Enter card number"
+                android:padding="@dimen/_8sdp" />
+
+
+            <TextView
+                android:id="@+id/card_number_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/red"
+                android:layout_marginHorizontal="@dimen/_2sdp"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Card Expiry"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/_12sdp"
+                    />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="2dp"
+                    android:weightSum="2">
+
+                    <EditText
+                        android:id="@+id/etMM"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginLeft="@dimen/_2sdp"
+                        android:layout_marginRight="@dimen/_2sdp"
+                        android:layout_marginBottom="@dimen/_2sdp"
+                        android:background="@drawable/white_border_background"
+                        android:maxLength="2"
+                        android:layout_weight="1"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/textColor"
+                        android:fontFamily="@font/poppins_regular"
+                        android:hint="MM"
+                        android:padding="@dimen/_7sdp" />
+
+
+                    <EditText
+                        android:id="@+id/etYY"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:inputType="number"
+                        android:layout_marginLeft="@dimen/_2sdp"
+                        android:layout_marginRight="@dimen/_2sdp"
+                        android:layout_marginBottom="@dimen/_2sdp"
+                        android:background="@drawable/white_border_background"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        
+                        android:textSize="@dimen/_12sdp"
+                        android:maxLength="4"
+                        android:textColor="@color/textColor"
+                        android:fontFamily="@font/poppins_regular"
+                        android:hint="YYYY"
+                        android:padding="@dimen/_7sdp"
+                        android:autofillHints="" />
+
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/card_expiry_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginHorizontal="@dimen/_2sdp"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Card CVV"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/etCvc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginRight="@dimen/_2sdp"
+                    android:background="@drawable/white_border_background"
+                    android:maxLength="3"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="***"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/_12sdp"
+                    android:padding="@dimen/_8sdp" />
+
+                <TextView
+                    android:id="@+id/cardcvc_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginHorizontal="@dimen/_2sdp"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Card Holder Name"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/etNameCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginRight="@dimen/_2sdp"
+                    android:background="@drawable/white_border_background"
+                    android:maxLength="20"
+                    android:fontFamily="@font/poppins_regular"
+                    android:singleLine="true"
+                    android:inputType="text|textCapWords"
+                    android:textColor="@color/textColor"
+                    android:hint="Enter card number"
+                    android:textSize="@dimen/_12sdp"
+                    android:padding="@dimen/_8sdp" />
+
+                <TextView
+                    android:id="@+id/cardholder_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginHorizontal="@dimen/_2sdp"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/PaymentButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:layout_marginHorizontal="18dp"
+                    android:gravity="center"
+                    android:paddingVertical="@dimen/_5sdp"
+                    android:background="@drawable/button_background"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Payment"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp"
+                    android:clickable="true" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pullToRefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.Fragments.ListedPetFragment">
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollViewPet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:weightSum="1"
+                    android:layout_marginHorizontal="@dimen/_10sdp">
+
+                    <EditText
+                        android:id="@+id/DFsearch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/round_background_border"
+                        android:drawableStart="@drawable/ic_baseline_search_24"
+                        android:hint="@string/search"
+                        android:inputType="text|textCapWords"
+                        android:maxLength="40"
+                        android:maxLines="1"
+                        android:layout_weight="0.9"
+                        android:padding="@dimen/_8sdp"
+                        android:singleLine="true"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <LinearLayout
+                        android:id="@+id/filterClick"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="0.1">
+
+                        <ImageView
+                            android:id="@+id/missingPetFilter"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:src="@drawable/filter" />
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/LatestListPets"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp" />
+
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/SearchFunctionality"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_20sdp" />
+
+
+                <ProgressBar
+                    android:id="@+id/ProgressBarScroll"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:progress="50"
+                    android:theme="@style/ProgressDialogStyle"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:id="@+id/NotFound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/textColor"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/no_pets_found"/>
+
+        </RelativeLayout>
+
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

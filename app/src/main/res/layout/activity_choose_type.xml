@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Vendor.ChooseTypeActivity">
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/themeColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+
+            <ImageView
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:src="@drawable/splash"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/white"
+                android:layout_gravity="center"/>
+
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="@dimen/_20sdp"
+                android:layout_marginBottom="-15dp"
+                android:layout_marginTop="@dimen/_30sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                tools:layout_editor_absoluteX="-106dp" >
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/please_select_type_to_login"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:textSize="@dimen/_12sdp"
+                            android:layout_gravity="center"
+                            android:textColor="@color/light_black"/>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center">
+
+                            <ImageView
+                                android:id="@+id/UserLogin"
+                                android:layout_width="@dimen/_150sdp"
+                                android:layout_height="@dimen/_150sdp"
+                                android:src="@drawable/white_circle_select"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="0.032" />
+
+                            <ImageView
+                                android:id="@+id/imageView4"
+                                android:layout_width="@dimen/_60sdp"
+                                android:layout_height="@dimen/_60sdp"
+                                android:src="@drawable/user_choose"
+                                app:layout_constraintBottom_toBottomOf="@+id/UserLogin"
+                                app:layout_constraintEnd_toEndOf="@+id/UserLogin"
+                                app:layout_constraintStart_toStartOf="@+id/UserLogin"
+                                app:layout_constraintTop_toTopOf="@+id/UserLogin"
+                                app:layout_constraintVertical_bias="0.394" />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/user"
+                                android:gravity="center"
+                                android:textSize="@dimen/_12sdp"
+                                android:textColor="@color/black"
+                                app:layout_constraintBottom_toBottomOf="@+id/UserLogin"
+                                app:layout_constraintEnd_toEndOf="@+id/imageView4"
+                                app:layout_constraintHorizontal_bias="0.509"
+                                app:layout_constraintStart_toStartOf="@+id/imageView4"
+                                app:layout_constraintTop_toBottomOf="@+id/imageView4"
+                                app:layout_constraintVertical_bias="0.0" />
+
+                            <ImageView
+                                android:id="@+id/RetailerLogin"
+                                android:layout_width="@dimen/_150sdp"
+                                android:layout_height="@dimen/_150sdp"
+                                android:src="@drawable/white_circle_select"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/UserLogin"
+                                app:layout_constraintVertical_bias="0.0" />
+
+                            <ImageView
+                                android:id="@+id/imageView7"
+                                android:layout_width="@dimen/_35sdp"
+                                android:layout_height="@dimen/_35sdp"
+                                android:src="@drawable/vendor_select"
+                                app:layout_constraintBottom_toBottomOf="@+id/RetailerLogin"
+                                app:layout_constraintEnd_toEndOf="@+id/RetailerLogin"
+                                app:layout_constraintHorizontal_bias="0.48"
+                                app:layout_constraintStart_toStartOf="@+id/RetailerLogin"
+                                app:layout_constraintTop_toTopOf="@+id/RetailerLogin"
+                                app:layout_constraintVertical_bias="0.446" />
+
+                            <TextView
+                                android:id="@+id/textView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/vendor"
+                                android:gravity="center"
+                                android:textSize="@dimen/_12sdp"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:textColor="@color/black"
+                                app:layout_constraintBottom_toBottomOf="@+id/RetailerLogin"
+                                app:layout_constraintEnd_toEndOf="@+id/RetailerLogin"
+                                app:layout_constraintHorizontal_bias="0.489"
+                                app:layout_constraintStart_toStartOf="@+id/RetailerLogin"
+                                app:layout_constraintTop_toBottomOf="@+id/imageView7"
+                                app:layout_constraintVertical_bias="0.014" />
+
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+                    </LinearLayout>
+
+                </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

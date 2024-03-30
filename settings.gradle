@@ -1,0 +1,25 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        maven { url 'https://javadoc.jitpack.io' }
+        maven {
+            url "https://jitpack.io"
+
+        }
+        maven { url 'https://dl.bintray.com/guardian/android' }
+        maven { url 'https://github.com/anthorlop/mvn-android/raw/master/' }
+
+    }
+}
+rootProject.name = "Calli's Dairy"
+include ':app'

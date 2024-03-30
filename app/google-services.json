@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "965808662451",
+    "project_id": "cali-s-diary",
+    "storage_bucket": "cali-s-diary.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:965808662451:android:371bd67114e3ecb748cdc6",
+        "android_client_info": {
+          "package_name": "com.callisdairy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "965808662451-gcc8qmtdknpj6prj6ijqbsfn03sk9fcp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1V7ORCMPpqBCUKAkHbAALWjSPgDj_pgc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "965808662451-gcc8qmtdknpj6prj6ijqbsfn03sk9fcp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "965808662451-epforul4buefqpj8o942kmtsv5e49dmf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.larmanuel.calisdiary"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
