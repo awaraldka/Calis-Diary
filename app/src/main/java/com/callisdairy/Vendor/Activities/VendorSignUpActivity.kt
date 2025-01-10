@@ -19,6 +19,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.Html
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -46,17 +47,21 @@ import com.callisdairy.Interface.Finish
 import com.callisdairy.Interface.PopupItemClickListener
 import com.callisdairy.ModalClass.passVendorData
 import com.callisdairy.R
-import com.callisdairy.UI.Activities.PdfViewActivity
 import com.callisdairy.UI.Activities.TermsAndConditionsActivity
 import com.callisdairy.Utils.*
 import com.callisdairy.Validations.FormValidations
 import com.callisdairy.api.request.SignUpRequestVendor
 import com.callisdairy.api.response.CountryList
 import com.callisdairy.databinding.ActivityVendorSignUpBinding
+import com.callisdairy.extension.androidExtension
+import com.callisdairy.extension.androidExtension.initPdfViewer
 import com.callisdairy.extension.setSafeOnClickListener
+import com.callisdairy.pdfreader.PdfEngine
+import com.callisdairy.pdfreader.PdfQuality
+import com.callisdairy.pdfreader.PdfViewerActivity
+import com.callisdairy.pdfreader.PdfViewerActivity.Companion.engine
 import com.callisdairy.viewModel.SignUpViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.callisdairy.extension.androidExtension
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -132,10 +137,12 @@ class VendorSignUpActivity : AppCompatActivity(), PopupItemClickListener, Finish
 
 
         binding.certificate.setSafeOnClickListener {
-            val intent = Intent(this,PdfViewActivity::class.java)
-            intent.putExtra("pdf",document)
-            startActivity(intent)
+            PdfViewerActivity.launchPdfFromUrl(
+                context = this, pdfUrl = document,
+                pdfTitle = "Title", directoryName = "dir",titleName = "", enableDownload = true)
         }
+
+
 
 
 
@@ -1056,9 +1063,7 @@ class VendorSignUpActivity : AppCompatActivity(), PopupItemClickListener, Finish
                                 binding.addCertificate.isVisible = false
                                 binding.certificate.isVisible = true
                                 document = response.data.result[0].mediaUrl
-//                                Glide.with(this@VendorSignUpActivity).load(R.drawable.pdf).into(binding.certificateImage)
-                                RetrievePDFFromURL(this@VendorSignUpActivity,binding.certificateImage).execute(document)
-
+                                initPdfViewer(document,this@VendorSignUpActivity,binding.certificateImage)
                             } catch (e: Exception) {
                                 e.printStackTrace()
                             }
@@ -1091,5 +1096,6 @@ class VendorSignUpActivity : AppCompatActivity(), PopupItemClickListener, Finish
     override fun finishActivity() {
         finishAfterTransition()
     }
+
 
 }

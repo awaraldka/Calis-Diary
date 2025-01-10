@@ -1,7 +1,6 @@
 package com.callisdairy.Vendor.Activities
 
 import android.Manifest
-import com.callisdairy.AdapterVendors.ClinicHoursSelectAdapter
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
@@ -11,7 +10,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -26,6 +24,7 @@ import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
@@ -40,6 +39,7 @@ import com.bumptech.glide.Glide
 import com.callisdairy.Adapter.LocationNearByAdapter
 import com.callisdairy.Adapter.LocationSelectAdapter
 import com.callisdairy.Adapter.openDialogSpecialization
+import com.callisdairy.AdapterVendors.ClinicHoursSelectAdapter
 import com.callisdairy.Interface.LocationClick
 import com.callisdairy.Interface.LocationClickNearBy
 import com.callisdairy.Interface.SpecializationClick
@@ -47,7 +47,6 @@ import com.callisdairy.ModalClass.ClinicHours
 import com.callisdairy.ModalClass.Specialization
 import com.callisdairy.ModalClass.passVendorData
 import com.callisdairy.R
-import com.callisdairy.UI.Activities.PdfViewActivity
 import com.callisdairy.Utils.CommonForImages
 import com.callisdairy.Utils.CommonForImages.getMimeType
 import com.callisdairy.Utils.DateFormat
@@ -56,20 +55,21 @@ import com.callisdairy.Utils.Home
 import com.callisdairy.Utils.ImageRotation
 import com.callisdairy.Utils.Progresss
 import com.callisdairy.Utils.Resource
-import com.callisdairy.Utils.RetrievePDFFromURL
 import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.Validations.FormValidations
 import com.callisdairy.api.OtherApi.NearByLocationResults
 import com.callisdairy.api.request.SignUpRequestVendorDoctor
 import com.callisdairy.databinding.ActivityDoctorRoleBinding
+import com.callisdairy.extension.androidExtension
+import com.callisdairy.extension.androidExtension.initPdfViewer
 import com.callisdairy.extension.setSafeOnClickListener
+import com.callisdairy.pdfreader.PdfViewerActivity
 import com.callisdairy.viewModel.GoogleLocationApiViewModel
 import com.callisdairy.viewModel.SignUpViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
 import com.kanabix.api.LocationPrediction
-import com.callisdairy.extension.androidExtension
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -171,9 +171,14 @@ class DoctorRoleActivity : AppCompatActivity(), SpecializationClick, LocationCli
 
 
         binding.certificateImage.setSafeOnClickListener {
-            val intent = Intent(this, PdfViewActivity::class.java)
-            intent.putExtra("pdf", document)
-            startActivity(intent)
+            PdfViewerActivity.launchPdfFromUrl(
+                context = this, pdfUrl = document,
+                pdfTitle = "Title", directoryName = "dir",titleName = "", enableDownload = true)
+
+
+//            val intent = Intent(this, PdfViewActivity::class.java)
+//            intent.putExtra("pdf", document)
+//            startActivity(intent)
         }
 
 
@@ -786,11 +791,7 @@ class DoctorRoleActivity : AppCompatActivity(), SpecializationClick, LocationCli
                                 binding.addCertificate.isVisible = false
                                 binding.certificate.isVisible = true
                                 document = response.data.result[0].mediaUrl
-//                                Glide.with(this@DoctorRoleActivity).load(R.drawable.pdf).into(binding.certificateImage)
-                                RetrievePDFFromURL(
-                                    this@DoctorRoleActivity,
-                                    binding.certificateImage
-                                ).execute(document)
+                                initPdfViewer(document,this@DoctorRoleActivity,binding.certificateImage)
 
                             } catch (e: Exception) {
                                 e.printStackTrace()

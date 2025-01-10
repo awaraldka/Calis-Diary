@@ -1,5 +1,6 @@
 package com.callisdairy.Vendor.Fragmnets
 
+import RequestPermission
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -12,7 +13,6 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +25,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -36,16 +37,26 @@ import com.callisdairy.Adapter.LocationSelectAdapter
 import com.callisdairy.Adapter.PostViewAdapter
 import com.callisdairy.Adapter.openDialogCatgeory
 import com.callisdairy.AdapterVendors.petTypeSelectAdapter
-import com.callisdairy.Interface.*
+import com.callisdairy.Interface.Finish
+import com.callisdairy.Interface.FinishBack
+import com.callisdairy.Interface.LocationClick
+import com.callisdairy.Interface.PopupItemClickListener
+import com.callisdairy.Interface.RemoveImage
 import com.callisdairy.R
-import com.callisdairy.Utils.*
+import com.callisdairy.Utils.CommonForImages
+import com.callisdairy.Utils.DialogUtils
 import com.callisdairy.Utils.Home.showKeyboard
+import com.callisdairy.Utils.LocationClass
+import com.callisdairy.Utils.Progresss
+import com.callisdairy.Utils.Resource
+import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.Validations.FormValidations
 import com.callisdairy.api.request.AddProductRequest
 import com.callisdairy.api.request.UpdateProductRequest
 import com.callisdairy.api.response.CountryList
 import com.callisdairy.api.response.PetCategoryListDocs
 import com.callisdairy.databinding.FragmentAddProductBinding
+import com.callisdairy.extension.androidExtension
 import com.callisdairy.extension.setSafeOnClickListener
 import com.callisdairy.viewModel.GoogleLocationApiViewModel
 import com.callisdairy.viewModel.VendorCommonViewModel
@@ -58,7 +69,6 @@ import com.esafirm.imagepicker.model.Image
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.kanabix.api.LocationPrediction
-import com.callisdairy.extension.androidExtension
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -66,7 +76,6 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
-import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class AddProductFragment : Fragment(), PopupItemClickListener, RemoveImage, LocationClick, Finish,

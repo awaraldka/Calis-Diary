@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.callisdairy.Adapter.RewardAdapter
 import com.callisdairy.ModalClass.TagPeopleModelClass
-import com.callisdairy.R
 import com.callisdairy.databinding.FragmentShareRewardsBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 

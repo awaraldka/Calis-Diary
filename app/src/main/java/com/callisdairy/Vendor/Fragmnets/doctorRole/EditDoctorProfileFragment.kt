@@ -1,6 +1,5 @@
 package com.callisdairy.Vendor.Fragmnets.doctorRole
 
-import com.callisdairy.AdapterVendors.ClinicHoursSelectAdapter
 import RequestPermission.Companion.requestMultiplePermissions
 import android.Manifest
 import android.annotation.SuppressLint
@@ -18,7 +17,6 @@ import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +34,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -50,6 +49,7 @@ import com.callisdairy.Adapter.LocationNearByAdapter
 import com.callisdairy.Adapter.LocationSelectAdapter
 import com.callisdairy.Adapter.openDialog
 import com.callisdairy.Adapter.openDialogSpecialization
+import com.callisdairy.AdapterVendors.ClinicHoursSelectAdapter
 import com.callisdairy.Interface.LocationClick
 import com.callisdairy.Interface.LocationClickNearBy
 import com.callisdairy.Interface.PopupItemClickListener
@@ -57,7 +57,6 @@ import com.callisdairy.Interface.SpecializationClick
 import com.callisdairy.ModalClass.ClinicHours
 import com.callisdairy.ModalClass.Specialization
 import com.callisdairy.R
-import com.callisdairy.UI.Activities.PdfViewActivity
 import com.callisdairy.Utils.CommonForImages
 import com.callisdairy.Utils.DateFormat
 import com.callisdairy.Utils.DialogUtils
@@ -67,13 +66,15 @@ import com.callisdairy.Utils.ImageRotation.bitmapToString
 import com.callisdairy.Utils.ImageRotation.getBitmap
 import com.callisdairy.Utils.Progresss
 import com.callisdairy.Utils.Resource
-import com.callisdairy.Utils.RetrievePDFFromURL
 import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.api.OtherApi.NearByLocationResults
 import com.callisdairy.api.request.EditProfileVetDoctorRequest
 import com.callisdairy.api.response.CountryList
 import com.callisdairy.databinding.FragmentEditDoctorProfileBinding
+import com.callisdairy.extension.androidExtension
+import com.callisdairy.extension.androidExtension.initPdfViewer
 import com.callisdairy.extension.setSafeOnClickListener
+import com.callisdairy.pdfreader.PdfViewerActivity
 import com.callisdairy.viewModel.GoogleLocationApiViewModel
 import com.callisdairy.viewModel.SignUpViewModel
 import com.callisdairy.viewModel.VendorCommonViewModel
@@ -82,8 +83,6 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
 import com.kanabix.api.LocationPrediction
-import com.callisdairy.extension.androidExtension
-import com.theartofdev.edmodo.cropper.CropImage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -280,9 +279,14 @@ class EditDoctorProfileFragment : Fragment(), PopupItemClickListener, Specializa
 
 
         binding.certificateImage.setSafeOnClickListener {
-            val intent = Intent(requireContext(), PdfViewActivity::class.java)
-            intent.putExtra("pdf", document)
-            startActivity(intent)
+            PdfViewerActivity.launchPdfFromUrl(
+                context = requireContext(), pdfUrl = document,
+                pdfTitle = "Title", directoryName = "dir",titleName = "", enableDownload = true)
+
+
+//            val intent = Intent(requireContext(), PdfViewActivity::class.java)
+//            intent.putExtra("pdf", document)
+//            startActivity(intent)
         }
 
 
@@ -575,10 +579,11 @@ class EditDoctorProfileFragment : Fragment(), PopupItemClickListener, Specializa
                                     binding.certificate.isVisible = true
                                     document =
                                         response.data.result.doctorVetProfile.certificateOfDoctor!!
-                                    RetrievePDFFromURL(
-                                        requireContext(),
-                                        binding.certificateImage
-                                    ).execute(document)
+
+
+                                    initPdfViewer(document,requireContext(),binding.certificateImage)
+
+
 
 
                                 } catch (e: Exception) {
@@ -766,9 +771,7 @@ class EditDoctorProfileFragment : Fragment(), PopupItemClickListener, Specializa
             if (resultCode == AppCompatActivity.RESULT_OK) {
                 try {
                     imageFile = File(imagePath)
-                    val intent = CropImage.activity(Uri.fromFile(imageFile))
-                        .setInitialCropWindowPaddingRatio(0f).getIntent(requireContext())
-                    startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
+                    setImageToPlaceHolder(Uri.fromFile(imageFile))
 
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -786,42 +789,31 @@ class EditDoctorProfileFragment : Fragment(), PopupItemClickListener, Specializa
 
                 if (data != null) {
                     image = data.data!!
-
-                    val intent = CropImage.activity(image).setInitialCropWindowPaddingRatio(0f)
-                        .getIntent(requireContext())
-                    startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
-
-
+                    setImageToPlaceHolder(image!!)
                 }
 
             }
         }
 
 
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            val result = CropImage.getActivityResult(data);
-            if (resultCode == AppCompatActivity.RESULT_OK) {
-                val newUri = result.uri
 
-                val getRealPath = ImageRotation.getRealPathFromURI2(requireContext(), newUri!!)
-                val finalBitmap =
-                    ImageRotation.modifyOrientation(getBitmap(getRealPath)!!, getRealPath)
-
-                if (getRealPath != null) {
-                    imageFile = File(getRealPath)
-
-                    profilepic = finalBitmap?.let { bitmapToString(it) }.toString()
-                    Glide.with(this).load(imageFile).into(binding.userProfile)
-                    USER_IMAGE_UPLOADED_PROFILE = true
+    }
 
 
-                }
+    fun setImageToPlaceHolder(newUri:Uri){
+        val getRealPath = ImageRotation.getRealPathFromURI2(requireContext(), newUri)
+        val finalBitmap =
+            ImageRotation.modifyOrientation(getBitmap(getRealPath)!!, getRealPath)
+
+        if (getRealPath != null) {
+            imageFile = File(getRealPath)
+
+            profilepic = finalBitmap?.let { bitmapToString(it) }.toString()
+            Glide.with(this).load(imageFile).into(binding.userProfile)
+            USER_IMAGE_UPLOADED_PROFILE = true
 
 
-            }
         }
-
-
     }
 
     private fun observeEditProfileResponse() {
@@ -1542,11 +1534,9 @@ class EditDoctorProfileFragment : Fragment(), PopupItemClickListener, Specializa
                                 binding.addCertificate.isVisible = false
                                 binding.certificate.isVisible = true
                                 document = response.data.result[0].mediaUrl
-//                                Glide.with(this@DoctorRoleActivity).load(R.drawable.pdf).into(binding.certificateImage)
-                                RetrievePDFFromURL(
-                                    requireContext(),
-                                    binding.certificateImage
-                                ).execute(document)
+                                initPdfViewer(document,requireContext(),binding.certificateImage)
+
+
 
                             } catch (e: Exception) {
                                 e.printStackTrace()

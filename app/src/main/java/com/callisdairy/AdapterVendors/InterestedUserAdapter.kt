@@ -3,7 +3,6 @@ package com.callisdairy.AdapterVendors
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import com.callisdairy.UI.Activities.OneToOneChatActivity
 import com.callisdairy.Utils.DateFormat
 import com.callisdairy.api.response.InterestedUserDocs
 import com.callisdairy.databinding.InterestUserListBinding
-import com.callisdairy.databinding.IntrestedUserListBinding
 import com.callisdairy.extension.setSafeOnClickListener
 
 class InterestedUserAdapter(

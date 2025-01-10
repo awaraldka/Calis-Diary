@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -24,7 +24,6 @@ import com.callisdairy.AdapterVendors.VendorCommonAdapter
 import com.callisdairy.Interface.VendorFilter
 import com.callisdairy.Interface.VendorProductClick
 import com.callisdairy.R
-import com.callisdairy.UI.Activities.AddMissingPetActivity
 import com.callisdairy.UI.Activities.subscription.SubscribePlansUserActivity
 import com.callisdairy.UI.dialogs.FilterVendorDialog
 import com.callisdairy.Utils.DateFormat
@@ -34,9 +33,9 @@ import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.Vendor.Activities.CommonContainerActivity
 import com.callisdairy.api.response.ProductsListDocs
 import com.callisdairy.databinding.FragmentVendorProductBinding
+import com.callisdairy.extension.androidExtension
 import com.callisdairy.extension.setSafeOnClickListener
 import com.callisdairy.viewModel.VendorCommonViewModel
-import com.callisdairy.extension.androidExtension
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

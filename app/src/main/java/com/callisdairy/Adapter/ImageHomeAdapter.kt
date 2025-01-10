@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.media3.common.Player
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.callisdairy.Interface.MorOptionsClick
@@ -16,7 +17,6 @@ import com.callisdairy.UI.Fragments.autoPlayVideo.PlayerViewAdapter.Companion.lo
 import com.callisdairy.api.response.MediaUrls
 import com.callisdairy.databinding.HomeLauyoutBinding
 import com.callisdairy.extension.setSafeOnClickListener
-import com.google.android.exoplayer2.Player
 
 class ImageHomeAdapter(
     var context: Context,

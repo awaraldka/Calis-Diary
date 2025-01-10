@@ -10,15 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.ConfigurationCompat
 import androidx.lifecycle.lifecycleScope
 import com.callisdairy.Utils.Localization
-import com.callisdairy.databinding.ActivitySplashScreenBinding
 import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.Vendor.Activities.VendorContainerActivity
-import com.callisdairy.Vendor.Activities.VendorLoginActivity
 import com.callisdairy.Vendor.ChooseTypeActivity
+import com.callisdairy.databinding.ActivitySplashScreenBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.Locale
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreen : AppCompatActivity() {

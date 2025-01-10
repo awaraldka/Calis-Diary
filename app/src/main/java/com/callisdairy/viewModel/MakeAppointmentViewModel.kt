@@ -11,7 +11,6 @@ import com.callisdairy.api.Constants
 import com.callisdairy.api.request.AddAppointmentRequest
 import com.callisdairy.api.response.AddPostResponse
 import com.callisdairy.api.response.AppointmentDateResponse
-import com.callisdairy.api.response.ProductsResponse
 import com.google.gson.GsonBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

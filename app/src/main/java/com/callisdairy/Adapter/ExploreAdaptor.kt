@@ -3,18 +3,12 @@ package com.callisdairy.Adapter
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.callisdairy.Interface.ViewPetFromProfile
-import com.callisdairy.R
 import com.callisdairy.UI.Activities.WatchActivity
 import com.callisdairy.api.response.ExploreListDocs
 import com.callisdairy.databinding.ExploreMoreBinding
-import com.callisdairy.databinding.InterestedPetModellayoutBinding
 
 class ExploreAdaptor(var context: Context, var data: ArrayList<ExploreListDocs>) :
     RecyclerView.Adapter<ExploreAdaptor.ViewHolder>() {

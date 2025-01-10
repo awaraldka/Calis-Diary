@@ -14,7 +14,6 @@ import com.callisdairy.api.response.BlockedUserResponse
 import com.callisdairy.api.response.UserFeedBackListResponse
 import com.callisdairy.api.response.ViewAppointmentResponse
 import com.google.gson.GsonBuilder
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

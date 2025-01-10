@@ -79,12 +79,13 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/exo_controls_fullscreen_enter"
                 android:id="@+id/bt_fullscreen"
                 android:theme="@style/ClickableView"
+                android:src="@drawable/exo_controls_fullscreen_enter"
                 />
+
         </LinearLayout>
-        <com.google.android.exoplayer2.ui.DefaultTimeBar
+        <androidx.media3.ui.DefaultTimeBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/exo_progress"

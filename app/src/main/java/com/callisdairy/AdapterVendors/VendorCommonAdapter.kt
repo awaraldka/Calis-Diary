@@ -6,7 +6,6 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.compose.ui.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import com.callisdairy.Interface.VendorProductClick
 import com.callisdairy.Utils.DateFormat

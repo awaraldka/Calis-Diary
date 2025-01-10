@@ -1,5 +1,6 @@
 package com.callisdairy.UI.Activities
 
+import RequestPermission
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -9,7 +10,6 @@ import android.database.Cursor
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -24,6 +24,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -46,18 +47,25 @@ import com.callisdairy.Interface.RemoveImage
 import com.callisdairy.R
 import com.callisdairy.Socket.SocketManager
 import com.callisdairy.UI.Fragments.autoPlayVideo.toast
-import com.callisdairy.Utils.*
+import com.callisdairy.Utils.CommonForImages
+import com.callisdairy.Utils.DateFormat
+import com.callisdairy.Utils.DialogUtils
+import com.callisdairy.Utils.Home
+import com.callisdairy.Utils.Progresss
+import com.callisdairy.Utils.Resource
+import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.Validations.FormValidations
 import com.callisdairy.api.OtherApi.NearByLocationResults
 import com.callisdairy.api.request.AddPetRequest
 import com.callisdairy.api.request.MediaRequestHome
-import com.callisdairy.databinding.ActivityAddPetBinding
-import com.callisdairy.viewModel.AddPetViewModel
 import com.callisdairy.api.request.UpdatePetRequest
 import com.callisdairy.api.request.mediaUrls
 import com.callisdairy.api.response.CountryList
 import com.callisdairy.api.response.PetCategoryListDocs
+import com.callisdairy.databinding.ActivityAddPetBinding
+import com.callisdairy.extension.androidExtension
 import com.callisdairy.extension.setSafeOnClickListener
+import com.callisdairy.viewModel.AddPetViewModel
 import com.callisdairy.viewModel.GoogleLocationApiViewModel
 import com.esafirm.imagepicker.features.ImagePickerConfig
 import com.esafirm.imagepicker.features.ImagePickerMode
@@ -68,7 +76,6 @@ import com.esafirm.imagepicker.model.Image
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.kanabix.api.LocationPrediction
-import com.callisdairy.extension.androidExtension
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -76,8 +83,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.Calendar
 
 
 @AndroidEntryPoint

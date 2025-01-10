@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -32,7 +32,6 @@ import com.callisdairy.Utils.DateFormat
 import com.callisdairy.Utils.Progresss
 import com.callisdairy.Utils.Resource
 import com.callisdairy.Utils.SavedPrefManager
-import com.callisdairy.Vendor.Activities.CommonContainerActivity
 import com.callisdairy.api.response.MyPetListDocs
 import com.callisdairy.databinding.FragmentVendorPetListBinding
 import com.callisdairy.extension.setSafeOnClickListener

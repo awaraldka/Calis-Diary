@@ -2,10 +2,10 @@ package com.callisdairy.UI.Activities
 
 import android.app.Dialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -25,9 +25,9 @@ import com.callisdairy.Utils.Progresss
 import com.callisdairy.Utils.Resource
 import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.databinding.ActivityChangeProfileBinding
-import com.callisdairy.viewModel.PetProfileViewModel
 import com.callisdairy.extension.androidExtension
 import com.callisdairy.extension.androidExtension.initLoader
+import com.callisdairy.viewModel.PetProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

@@ -77,11 +77,12 @@
             android:name=".UI.Activities.subscription.SubscribePlansUserActivity"
             android:exported="false" />
         <activity
-            android:name=".UI.Activities.subscription.CardDetailsActivity"
+            android:name=".pdfreader.PdfViewerActivity"
             android:exported="false" />
         <activity
-            android:name=".UI.Activities.PdfViewActivity"
+            android:name=".UI.Activities.subscription.CardDetailsActivity"
             android:exported="false" />
+
         <activity
             android:name=".Vendor.ChooseTypeActivity"
             android:exported="false">
@@ -479,10 +480,6 @@
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="@string/facebook_app_id"
             android:exported="true" />
-
-        <activity
-            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
 
         <service
             android:name=".FirebaseNotifications.MyFirebaseMessagingService"

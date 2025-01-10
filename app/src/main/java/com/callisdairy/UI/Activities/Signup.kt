@@ -48,11 +48,10 @@ import com.callisdairy.Validations.FormValidations
 import com.callisdairy.api.request.SignUpRequest
 import com.callisdairy.api.response.CountryList
 import com.callisdairy.databinding.ActivitySignupBinding
+import com.callisdairy.extension.androidExtension
 import com.callisdairy.extension.setSafeOnClickListener
 import com.callisdairy.viewModel.SignUpViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.callisdairy.extension.androidExtension
-import com.theartofdev.edmodo.cropper.CropImage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.*
@@ -1071,34 +1070,17 @@ class Signup : AppCompatActivity(), PopupItemClickListener, PopupItemClickListen
 
         if (requestCode == GALLERY) {
             if (resultCode == RESULT_OK) {
-
-
-
                 if (data != null) {
                     image = data.data!!
-
-                    val intent = CropImage.activity(image).setInitialCropWindowPaddingRatio(0f)
-                        .getIntent(this)
-                    startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
-
-
-
-
-
-
-                }
+                    setImageOnImageView(image!!)                }
 
             }
         }
         else if (requestCode == CAMERA) {
             if (resultCode == RESULT_OK) {
                 try {
-
                     imageFile = File(imagePath)
-                    val intent = CropImage.activity(Uri.fromFile(imageFile)).setInitialCropWindowPaddingRatio(0f)
-                        .getIntent(this)
-                    startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
-
+                    setImageOnImageView(Uri.fromFile(imageFile))
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -1106,36 +1088,33 @@ class Signup : AppCompatActivity(), PopupItemClickListener, PopupItemClickListen
 
             }
         }
-        else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            var result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
-               val newUri =  result.uri
-
-                val getRealPath = ImageRotation.getRealPathFromURI2(this, newUri!!)
-                val finalBitmap = ImageRotation.modifyOrientation(getBitmap(getRealPath)!!, getRealPath)
-
-                if (getRealPath != null) {
-//                        imageFile = finalBitmap?.let { SaveImage(it) }
-                    imageFile = File(getRealPath)
-                    if (valuePet == "imgPetSelector") {
-                        petPic = finalBitmap?.let { bitmapToString(it) }.toString()
-                        binding.imgPetProfile.borderColor =Color.parseColor("#6FCFB9")
-                        Glide.with(this).load(imageFile).into(binding.imgPetProfile)
-                        USER_IMAGE_UPLOADED_PET = true
-                    } else {
-                        binding.userProfile.borderColor =Color.parseColor("#6FCFB9")
-                        Glide.with(this).load(imageFile).into(binding.userProfile)
-                        profilepic = finalBitmap?.let { bitmapToString(it) }.toString()
-                        USER_IMAGE_UPLOADED_PROFILE = true
-                    }
-
-                }
-
-
-
-            }
-        }
     }
+
+
+    private fun setImageOnImageView(newUri:Uri){
+        val getRealPath = ImageRotation.getRealPathFromURI2(this, newUri)
+        val finalBitmap = ImageRotation.modifyOrientation(getBitmap(getRealPath)!!, getRealPath)
+
+        if (getRealPath != null) {
+            imageFile = File(getRealPath)
+            if (valuePet == "imgPetSelector") {
+                petPic = finalBitmap?.let { bitmapToString(it) }.toString()
+                binding.imgPetProfile.borderColor =Color.parseColor("#6FCFB9")
+                Glide.with(this).load(imageFile).into(binding.imgPetProfile)
+                USER_IMAGE_UPLOADED_PET = true
+            } else {
+                binding.userProfile.borderColor =Color.parseColor("#6FCFB9")
+                Glide.with(this).load(imageFile).into(binding.userProfile)
+                profilepic = finalBitmap?.let { bitmapToString(it) }.toString()
+                USER_IMAGE_UPLOADED_PROFILE = true
+            }
+
+        }
+
+    }
+
+
+
 
     private fun SaveImage(finalBitmap: Bitmap) : File{
         var file : File? = null

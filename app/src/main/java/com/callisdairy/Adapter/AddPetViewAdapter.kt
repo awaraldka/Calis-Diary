@@ -6,10 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.callisdairy.Interface.RemoveImage
-import com.callisdairy.ModalClass.addPetRequest
 import com.callisdairy.api.request.mediaUrls
 import com.callisdairy.databinding.ViewSelectedValueBinding
-import java.util.ArrayList
 
 class AddPetViewAdapter(val context: Context, var mArrayUri: ArrayList<mediaUrls>, val click: RemoveImage):RecyclerView.Adapter<AddPetViewAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

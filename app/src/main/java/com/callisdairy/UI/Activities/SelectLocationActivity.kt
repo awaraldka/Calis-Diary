@@ -1,8 +1,7 @@
 package com.callisdairy.UI.Activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.callisdairy.R
+import androidx.appcompat.app.AppCompatActivity
 import com.callisdairy.databinding.ActivitySelectLocationBinding
 
 class SelectLocationActivity : AppCompatActivity() {

@@ -5,10 +5,7 @@ import android.media.MediaPlayer
 import android.media.MediaPlayer.OnCompletionListener
 import android.net.Uri
 import android.widget.ImageView
-import android.widget.Toast
-import androidx.core.view.isVisible
 import com.callisdairy.Interface.FinishAudioListener
-import com.callisdairy.UI.Fragments.autoPlayVideo.PlayerViewAdapter
 
 class AndroidAudioPlayer(
     private val context: Context

@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.callisdairy.Interface.PetNameClickListener
 import com.callisdairy.R
-import com.callisdairy.api.response.CountryList
 import com.callisdairy.api.response.MyPetListDocs
 
 

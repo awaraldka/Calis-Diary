@@ -56,12 +56,12 @@ import com.callisdairy.Utils.ImageRotation.getBitmap
 import com.callisdairy.api.response.MediaResultHome
 import com.callisdairy.api.response.MediaUrls
 import com.callisdairy.databinding.ActivityOneToOneChatBinding
+import com.callisdairy.extension.androidExtension
 import com.callisdairy.extension.setSafeOnClickListener
 import com.callisdairy.viewModel.AddEventViewModel
 import com.devlomi.record_view.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.JsonObject
-import com.callisdairy.extension.androidExtension
 import com.vanniktech.emoji.EmojiPopup
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers

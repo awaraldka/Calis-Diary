@@ -13,7 +13,6 @@ import com.callisdairy.Interface.LikeUnlikeService
 import com.callisdairy.Interface.serviceView
 import com.callisdairy.R
 import com.callisdairy.UI.Activities.OneToOneChatActivity
-import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.api.response.ServiceListDocs
 import com.callisdairy.databinding.ServiceListBinding
 import com.callisdairy.extension.setSafeOnClickListener

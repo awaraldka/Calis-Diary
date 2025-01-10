@@ -1,5 +1,6 @@
 package com.callisdairy.Vendor.Fragmnets
 
+import RequestPermission
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -19,7 +20,6 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +29,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,11 +44,10 @@ import com.callisdairy.Validations.FormValidations
 import com.callisdairy.api.request.EditProfileVendorRequest
 import com.callisdairy.api.response.CountryList
 import com.callisdairy.databinding.FragmentEditVendorProfileBinding
+import com.callisdairy.extension.androidExtension
 import com.callisdairy.extension.setSafeOnClickListener
 import com.callisdairy.viewModel.EditProfileViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.callisdairy.extension.androidExtension
-import com.theartofdev.edmodo.cropper.CropImage
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -55,7 +55,6 @@ import java.io.FileInputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class EditVendorProfileFragment : Fragment(), PopupItemClickListener {
@@ -387,11 +386,7 @@ class EditVendorProfileFragment : Fragment(), PopupItemClickListener {
 
                 if (data != null) {
                     image = data.data!!
-
-                    val intent = CropImage.activity(image).setInitialCropWindowPaddingRatio(0f)
-                        .getIntent(requireContext())
-                    startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
-
+                    setImageToPlaceHolder(image)
                 }
 
             }
@@ -401,9 +396,7 @@ class EditVendorProfileFragment : Fragment(), PopupItemClickListener {
                 try {
 
                     imageFile = File(imagePath)
-                    val intent = CropImage.activity(Uri.fromFile(imageFile)).setInitialCropWindowPaddingRatio(0f)
-                        .getIntent(requireContext())
-                    startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
+                    setImageToPlaceHolder(Uri.fromFile(imageFile))
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -411,29 +404,21 @@ class EditVendorProfileFragment : Fragment(), PopupItemClickListener {
 
             }
         }
-        else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE
-        ) {
-            var result = CropImage.getActivityResult(data);
-            if (resultCode == AppCompatActivity.RESULT_OK) {
-                val newUri =  result.uri;
+    }
 
-                val getRealPath = ImageRotation.getRealPathFromURI2(requireContext(), newUri!!)
-                val finalBitmap = ImageRotation.modifyOrientation(getBitmap(getRealPath)!!, getRealPath)
+    fun setImageToPlaceHolder(newUri:Uri){
+        val getRealPath = ImageRotation.getRealPathFromURI2(requireContext(), newUri!!)
+        val finalBitmap = ImageRotation.modifyOrientation(getBitmap(getRealPath)!!, getRealPath)
 
-                if (getRealPath != null) {
-                    imageFile = File(getRealPath)
+        if (getRealPath != null) {
+            imageFile = File(getRealPath)
 
-                    binding.userProfile.borderColor = Color.parseColor("#6FCFB9")
-                    Glide.with(this).load(imageFile).into(binding.userProfile)
-                    profilepic = finalBitmap?.let { bitmapToString(it) }.toString()
-                    USER_IMAGE_UPLOADED_PROFILE = true
+            binding.userProfile.borderColor = Color.parseColor("#6FCFB9")
+            Glide.with(this).load(imageFile).into(binding.userProfile)
+            profilepic = finalBitmap?.let { bitmapToString(it) }.toString()
+            USER_IMAGE_UPLOADED_PROFILE = true
 
 
-                }
-
-
-
-            }
         }
     }
 

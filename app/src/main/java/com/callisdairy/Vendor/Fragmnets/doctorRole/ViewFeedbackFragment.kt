@@ -1,18 +1,15 @@
 package com.callisdairy.Vendor.Fragmnets.doctorRole
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.callisdairy.ModalClass.feedbackDetails
-import com.callisdairy.ModalClass.passVendorData
 import com.callisdairy.R
-import com.callisdairy.databinding.FragmentFeedBackListBinding
 import com.callisdairy.databinding.FragmentViewFeedBackBinding
 import com.callisdairy.extension.setSafeOnClickListener
 

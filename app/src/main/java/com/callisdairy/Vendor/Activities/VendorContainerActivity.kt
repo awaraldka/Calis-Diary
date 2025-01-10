@@ -1,9 +1,9 @@
 package com.callisdairy.Vendor.Activities
 
+import RequestPermission
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
 import android.util.Log
@@ -13,6 +13,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -20,18 +21,27 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.callisdairy.Interface.AddListenerVendor
 import com.callisdairy.Interface.RenewSubscription
 import com.callisdairy.R
-import com.callisdairy.Socket.*
+import com.callisdairy.Socket.ChatHistoryResult
+import com.callisdairy.Socket.CheckOnlineUserResult
+import com.callisdairy.Socket.MessagesChat
+import com.callisdairy.Socket.OnlineUserResult
+import com.callisdairy.Socket.SocketManager
+import com.callisdairy.Socket.UserTypingResult
+import com.callisdairy.Socket.chatDataResult
 import com.callisdairy.UI.Activities.AddPetActivity
 import com.callisdairy.UI.Activities.ChatsActivity
 import com.callisdairy.UI.Activities.subscription.DialogBoxAlertRenew
-import com.callisdairy.UI.Activities.subscription.DialogBoxExpiredRenew
 import com.callisdairy.UI.Activities.subscription.DialogBoxTrial
 import com.callisdairy.UI.Activities.subscription.SubscriptionManageActivity
 import com.callisdairy.UI.dialogs.VendorAddPosts
 import com.callisdairy.Utils.CommonConverter
 import com.callisdairy.Utils.Resource
 import com.callisdairy.Utils.SavedPrefManager
-import com.callisdairy.Vendor.Fragmnets.*
+import com.callisdairy.Vendor.Fragmnets.MenuVendorFragment
+import com.callisdairy.Vendor.Fragmnets.VendorHomeFragment
+import com.callisdairy.Vendor.Fragmnets.VendorPetListFragment
+import com.callisdairy.Vendor.Fragmnets.VendorProductFragment
+import com.callisdairy.Vendor.Fragmnets.VendorServiceListFragment
 import com.callisdairy.Vendor.Fragmnets.doctorRole.AppointmentFragment
 import com.callisdairy.Vendor.Fragmnets.doctorRole.DoctorMenuFragment
 import com.callisdairy.api.Constants
@@ -118,7 +128,6 @@ class VendorContainerActivity : AppCompatActivity(), View.OnClickListener, AddLi
         val loginCount =
             SavedPrefManager.getStringPreferences(this, SavedPrefManager.LOGIN_COUNT).toString()
         token = SavedPrefManager.getStringPreferences(this, SavedPrefManager.Token).toString()
-
         if (loginCount == "0") {
             SavedPrefManager.saveStringPreferences(this, SavedPrefManager.LOGIN_COUNT,"1")
             supportFragmentManager.let { DialogBoxTrial().show(it, "MyCustomFragment") }

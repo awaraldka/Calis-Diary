@@ -1,9 +1,7 @@
 package com.callisdairy.api.request
 
 import com.callisdairy.ModalClass.ClinicHours
-import com.callisdairy.ModalClass.ClinicHoursRequest
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
 
 class SignUpRequest {
     @SerializedName("name") var name: String = ""

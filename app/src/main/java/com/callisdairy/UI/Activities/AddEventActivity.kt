@@ -1,5 +1,6 @@
 package com.callisdairy.UI.Activities
 
+import RequestPermission
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -11,7 +12,6 @@ import android.database.Cursor
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -19,9 +19,13 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.*
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.TimePicker
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
@@ -39,16 +43,20 @@ import com.callisdairy.ModalClass.DialogData
 import com.callisdairy.R
 import com.callisdairy.Socket.SocketManager
 import com.callisdairy.UI.Fragments.autoPlayVideo.toast
-import com.callisdairy.Utils.*
+import com.callisdairy.Utils.CommonForImages
+import com.callisdairy.Utils.DateFormat
+import com.callisdairy.Utils.DialogUtils
+import com.callisdairy.Utils.Progresss
+import com.callisdairy.Utils.Resource
+import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.Validations.FormValidations
 import com.callisdairy.api.request.AddEventRequest
+import com.callisdairy.api.request.EditEventRequest
 import com.callisdairy.api.response.CountryList
 import com.callisdairy.databinding.ActivityAddEventBinding
-import com.callisdairy.viewModel.AddEventViewModel
-import com.callisdairy.Utils.SavedPrefManager
-import com.callisdairy.api.request.EditEventRequest
-import com.callisdairy.extension.setSafeOnClickListener
 import com.callisdairy.extension.androidExtension
+import com.callisdairy.extension.setSafeOnClickListener
+import com.callisdairy.viewModel.AddEventViewModel
 import com.esafirm.imagepicker.features.ImagePickerConfig
 import com.esafirm.imagepicker.features.ImagePickerMode
 import com.esafirm.imagepicker.features.ImagePickerSavePath
@@ -62,8 +70,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.Calendar
 
 @AndroidEntryPoint
 class AddEventActivity : AppCompatActivity(), PopupItemClickListener, RemoveImage, Finish {

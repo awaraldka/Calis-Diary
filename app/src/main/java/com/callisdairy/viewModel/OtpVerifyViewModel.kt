@@ -1,21 +1,13 @@
 package com.callisdairy.viewModel
 
 import android.app.Application
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.callisdairy.CalisApp
 import com.callisdairy.ModalClass.PojoClass
 import com.callisdairy.Repositry.CalisRespository
 import com.callisdairy.Utils.NetworkHelper
 import com.callisdairy.Utils.Resource
 import com.callisdairy.api.Constants.NO_INTERNET
-import com.callisdairy.api.request.SignUpRequest
-import com.callisdairy.api.response.CountryResponse
-import com.callisdairy.api.response.SignUpResponse
 import com.callisdairy.api.response.VerifyOtpResponse
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
@@ -24,7 +16,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
-import org.json.JSONObject
 import retrofit2.Response
 import javax.inject.Inject
 

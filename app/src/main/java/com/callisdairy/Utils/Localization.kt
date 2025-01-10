@@ -2,7 +2,7 @@ package com.callisdairy.Utils
 
 import android.app.Activity
 import android.content.Context
-import java.util.*
+import java.util.Locale
 
 object Localization {
 

@@ -17,7 +17,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
@@ -34,8 +37,28 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.callisdairy.Adapter.*
-import com.callisdairy.Interface.*
+import com.callisdairy.Adapter.LocationFilterAdapter
+import com.callisdairy.Adapter.MarketBannerAdapter
+import com.callisdairy.Adapter.MarketCategoryAdapter
+import com.callisdairy.Adapter.MarketLatestListedPetAdapter
+import com.callisdairy.Adapter.ProductListCategory
+import com.callisdairy.Adapter.ServiceCategoryAdapter
+import com.callisdairy.Adapter.openDialog
+import com.callisdairy.Adapter.productListAdapter
+import com.callisdairy.Adapter.serviceListAdapter
+import com.callisdairy.Interface.BannerSliderListener
+import com.callisdairy.Interface.CategoryClick
+import com.callisdairy.Interface.CategoryView
+import com.callisdairy.Interface.GetFilterData
+import com.callisdairy.Interface.InterestedClick
+import com.callisdairy.Interface.LikeUnlikePet
+import com.callisdairy.Interface.LikeUnlikeProduct
+import com.callisdairy.Interface.LikeUnlikeService
+import com.callisdairy.Interface.PopupItemClickListener
+import com.callisdairy.Interface.ServiceClick
+import com.callisdairy.Interface.productView
+import com.callisdairy.Interface.serviceView
+import com.callisdairy.Interface.viewPests
 import com.callisdairy.ModalClass.MarketFilter
 import com.callisdairy.ModalClass.MarketModalClass
 import com.callisdairy.ModalClass.PetListDataModelClass
@@ -46,20 +69,29 @@ import com.callisdairy.UI.Activities.ProductDescriptionActivity
 import com.callisdairy.UI.Activities.ServiceDescriptionActivity
 import com.callisdairy.UI.Fragments.autoPlayVideo.PlayerViewAdapter
 import com.callisdairy.UI.Fragments.autoPlayVideo.PlayerViewAdapter.Companion.releaseAllPlayers
-import com.callisdairy.Utils.*
-import com.callisdairy.api.response.*
+import com.callisdairy.Utils.DialogUtils
+import com.callisdairy.Utils.Progresss
+import com.callisdairy.Utils.Resource
+import com.callisdairy.Utils.SavedPrefManager
+import com.callisdairy.api.response.BannerListDocs
+import com.callisdairy.api.response.CountryList
+import com.callisdairy.api.response.ListCategoryDocs
+import com.callisdairy.api.response.PetListDocs
+import com.callisdairy.api.response.ProductListDocs
+import com.callisdairy.api.response.ServiceListDocs
 import com.callisdairy.databinding.FragmentMarketFragmenrtBinding
+import com.callisdairy.extension.androidExtension
 import com.callisdairy.extension.setSafeOnClickListener
 import com.callisdairy.viewModel.MarketViewModel
 import com.denzcoskun.imageslider.models.SlideModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.callisdairy.extension.androidExtension
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.collectLatest
-import java.lang.Runnable
-import java.util.*
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -166,6 +198,17 @@ class MarketFragment : Fragment(), productView, serviceView, viewPests,
 
 
     private val viewModel: MarketViewModel by viewModels()
+
+
+    companion object {
+        fun newInstance(): MarketFragment {
+            return MarketFragment()
+        }
+    }
+
+    fun setData(flag: String) {
+        fromCome = flag
+    }
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreateView(

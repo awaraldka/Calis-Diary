@@ -1,22 +1,28 @@
 package com.callisdairy.UI.Activities
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.callisdairy.Adapter.ChatsAdapter
-import com.callisdairy.R.*
-import com.callisdairy.Socket.*
+import com.callisdairy.R.style
+import com.callisdairy.Socket.ChatHistoryResult
+import com.callisdairy.Socket.CheckOnlineUserResult
+import com.callisdairy.Socket.MessagesChat
+import com.callisdairy.Socket.OnlineUserResult
+import com.callisdairy.Socket.SocketManager
+import com.callisdairy.Socket.UserTypingResult
+import com.callisdairy.Socket.chatDataResult
+import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.api.response.SearchDocs
 import com.callisdairy.databinding.ActivityChatsBinding
-import com.callisdairy.viewModel.peopleSearchViewModel
-import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.extension.setSafeOnClickListener
+import com.callisdairy.viewModel.peopleSearchViewModel
 import com.google.gson.JsonObject
 import dagger.hilt.android.AndroidEntryPoint
 

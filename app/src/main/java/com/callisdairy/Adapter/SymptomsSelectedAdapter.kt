@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.callisdairy.ModalClass.ProblemSymptoms
 import com.callisdairy.databinding.SumptomsProblemBinding
-import java.lang.Exception
 
 class SymptomsSelectedAdapter(
     private val context: Context,

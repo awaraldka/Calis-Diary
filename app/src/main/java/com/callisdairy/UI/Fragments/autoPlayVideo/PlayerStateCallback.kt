@@ -1,6 +1,6 @@
 package com.callisdairy.UI.Fragments.autoPlayVideo
 
-import com.google.android.exoplayer2.Player
+import androidx.media3.common.Player
 
 interface PlayerStateCallback {
 

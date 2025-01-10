@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import com.callisdairy.Interface.VendorProductClick
 import com.callisdairy.Utils.DateFormat
 import com.callisdairy.api.response.RewardsResponseDocs
 import com.callisdairy.databinding.RewardsLayutBinding

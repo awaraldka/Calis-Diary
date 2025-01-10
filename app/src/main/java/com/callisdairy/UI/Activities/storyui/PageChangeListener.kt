@@ -2,7 +2,10 @@ package com.callisdairy.UI.Activities.storyui
 
 import android.os.Handler
 import android.util.Log
-import androidx.viewpager.widget.ViewPager.*
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING
+import androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE
+import androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING
 
 abstract class PageChangeListener : OnPageChangeListener {
 

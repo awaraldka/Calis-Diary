@@ -2,7 +2,6 @@ package com.callisdairy.UI.dialogs
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,7 @@ import androidx.fragment.app.DialogFragment
 import com.callisdairy.Interface.VendorFilter
 import com.callisdairy.R
 import com.callisdairy.extension.setSafeOnClickListener
-import java.util.*
+import java.util.Calendar
 
 class FilterVendorDialog(val click : VendorFilter,val from : String) : DialogFragment() {
 

@@ -8,10 +8,8 @@ import com.callisdairy.Repositry.CalisRespository
 import com.callisdairy.Utils.NetworkHelper
 import com.callisdairy.Utils.Resource
 import com.callisdairy.api.Constants
-import com.callisdairy.api.request.AddAppointmentRequest
 import com.callisdairy.api.response.AddPostResponse
 import com.callisdairy.api.response.AddToIntrestedResponse
-import com.callisdairy.api.response.AppointmentDateResponse
 import com.callisdairy.api.response.CountryResponse
 import com.callisdairy.api.response.EditProfileResponse
 import com.callisdairy.api.response.VetOrDoctorResponse

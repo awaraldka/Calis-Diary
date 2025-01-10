@@ -1,15 +1,12 @@
 package com.callisdairy.UI.Activities
 
 import android.content.Intent
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.callisdairy.Adapter.BuyDevicesAdapter
-import com.callisdairy.Adapter.ChatsAdapter
 import com.callisdairy.ModalClass.TrackingDevice
 import com.callisdairy.R
-import com.callisdairy.UI.Fragments.autoPlayVideo.toast
 import com.callisdairy.databinding.ActivityTrackingDeviceBinding
 import com.callisdairy.extension.setSafeOnClickListener
 

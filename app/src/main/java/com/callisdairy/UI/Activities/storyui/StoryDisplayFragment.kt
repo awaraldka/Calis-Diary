@@ -14,10 +14,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.annotation.OptIn
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.common.util.Util
+import androidx.media3.datasource.DataSource
+import androidx.media3.datasource.DefaultHttpDataSource
+import androidx.media3.datasource.cache.CacheDataSource
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.source.MediaSource
+import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
@@ -32,19 +43,13 @@ import com.callisdairy.Utils.story.OnSwipeTouchListener
 import com.callisdairy.Utils.story.hide
 import com.callisdairy.Utils.story.show
 import com.callisdairy.databinding.FragmentStoryDisplayBinding
+import com.callisdairy.extension.androidExtension
 import com.callisdairy.storycustomview.StoriesProgressView
 import com.callisdairy.viewModel.StoryCommentViewModel
-import com.google.android.exoplayer2.*
-
-import com.google.android.exoplayer2.source.ProgressiveMediaSource
-import com.google.android.exoplayer2.upstream.DataSource
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
-import com.google.android.exoplayer2.upstream.cache.CacheDataSourceFactory
-import com.google.android.exoplayer2.util.Util
-import com.callisdairy.extension.androidExtension
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 
 
 @AndroidEntryPoint
@@ -68,7 +73,7 @@ class StoryDisplayFragment : Fragment(), StoriesProgressView.StoriesListener {
     lazy { storyUser.stories }
 
 
-    private var simpleExoPlayer: SimpleExoPlayer? = null
+    private var simpleExoPlayer: ExoPlayer? = null
 
     //    private lateinit var mediaDataSourceFactory: DataSource.Factory
     private var pageViewOperator: PageViewOperator? = null
@@ -87,6 +92,7 @@ class StoryDisplayFragment : Fragment(), StoriesProgressView.StoriesListener {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentStoryDisplayBinding.inflate(layoutInflater, container, false)
+
 
 //        _binding!!.activityRootView.setSafeOnClickListener{
 //            _binding!!.etCommentSection.focusable= View.NOT_FOCUSABLE
@@ -280,30 +286,34 @@ class StoryDisplayFragment : Fragment(), StoriesProgressView.StoriesListener {
         storyId = stories[counter]._id
     }
 
-    @SuppressLint("Range")
+    @OptIn(UnstableApi::class) @SuppressLint("Range")
     private fun initializePlayer() {
         println("======initializePlayer========== $counter")
         if (simpleExoPlayer == null) {
-            simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(requireContext())
+            simpleExoPlayer = ExoPlayer.Builder(requireContext()).build()
         } else {
             simpleExoPlayer?.release()
             simpleExoPlayer = null
-            simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(requireContext())
+            simpleExoPlayer = ExoPlayer.Builder(requireContext()).build()
         }
         binding.storyDisplayVideo.keepScreenOn = true
 
-        mediaDataSourceFactory = CacheDataSourceFactory(
-            CalisApp.simpleCache,
-            DefaultHttpDataSourceFactory(
-                Util.getUserAgent(
-                    context,
-                    Util.getUserAgent(requireContext(), getString(R.string.app_name))
+        val upstreamDataSourceFactory = DefaultHttpDataSource.Factory()
+            .setUserAgent(Util.getUserAgent(requireContext(), getString(R.string.app_name)))
+
+        mediaDataSourceFactory = CalisApp.simpleCache?.let {
+            CacheDataSource.Factory()
+                .setCache(it) // Set the cache
+                .setUpstreamDataSourceFactory(
+                    upstreamDataSourceFactory
                 )
-            )
-        )
-        val mediaSource = ProgressiveMediaSource.Factory(mediaDataSourceFactory).createMediaSource(
-            Uri.parse(stories[counter].url)
-        )
+        }!!
+
+        // Create a media source
+        val mediaSource: MediaSource = ProgressiveMediaSource.Factory(mediaDataSourceFactory!!)
+            .createMediaSource(MediaItem.fromUri(Uri.parse(stories[counter].url)))
+
+
         simpleExoPlayer?.prepare(mediaSource, false, false)
         if (onResumeCalled) {
             simpleExoPlayer?.playWhenReady = true
@@ -312,16 +322,16 @@ class StoryDisplayFragment : Fragment(), StoriesProgressView.StoriesListener {
         binding.storyDisplayVideo.setShutterBackgroundColor(Color.BLACK)
         binding.storyDisplayVideo.player = simpleExoPlayer
 
-        simpleExoPlayer?.addListener(object : Player.EventListener {
-            override fun onPlayerError(error: ExoPlaybackException?) {
-                super.onPlayerError(error)
-                binding.storyDisplayVideoProgress.hide()
-                if (counter == stories.size.minus(1)) {
-                    pageViewOperator?.nextPageView()
-                } else {
-                    binding.storiesProgressView?.skip()
-                }
-            }
+        simpleExoPlayer?.addListener(object : Player.Listener {
+//            override fun onPlayerError(error: ExoPlaybackException?) {
+//                super.onPlayerError(error)
+//                binding.storyDisplayVideoProgress.hide()
+//                if (counter == stories.size.minus(1)) {
+//                    pageViewOperator?.nextPageView()
+//                } else {
+//                    binding.storiesProgressView?.skip()
+//                }
+//            }
 
             override fun onLoadingChanged(isLoading: Boolean) {
                 super.onLoadingChanged(isLoading)
