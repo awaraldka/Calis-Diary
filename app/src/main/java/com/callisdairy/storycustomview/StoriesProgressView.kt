@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import com.callisdairy.R
-import java.util.*
 
 class StoriesProgressView @JvmOverloads constructor(
     context: Context,

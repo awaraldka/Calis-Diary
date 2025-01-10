@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.callisdairy.Interface.LocationClick
 import com.callisdairy.Interface.LocationClickNearBy
 import com.callisdairy.api.OtherApi.NearByLocationResults
 import com.callisdairy.databinding.LocationLayoutBinding

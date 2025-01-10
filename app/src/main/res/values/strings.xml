@@ -755,5 +755,7 @@
     <string name="select_pet_name">Select pet name</string>
     <string name="no_chats_yet">No Chats yet.</string>
     <string name="pet_forum">Pet Forum</string>
+    <string name="pdfView_page_no" translatable="false">%1$d/%2$d</string>
+
 
 </resources>

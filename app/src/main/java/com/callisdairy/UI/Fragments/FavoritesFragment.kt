@@ -3,7 +3,6 @@ package com.callisdairy.UI.Fragments
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -20,8 +20,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.callisdairy.Adapter.*
-import com.callisdairy.Interface.*
+import com.callisdairy.Adapter.FavPetAdapter
+import com.callisdairy.Adapter.FavProductAdapter
+import com.callisdairy.Adapter.FavServicesAdapter
+import com.callisdairy.Interface.InterestedClick
+import com.callisdairy.Interface.LikeUnlikePet
+import com.callisdairy.Interface.LikeUnlikeProduct
+import com.callisdairy.Interface.LikeUnlikeService
+import com.callisdairy.Interface.productView
+import com.callisdairy.Interface.serviceView
+import com.callisdairy.Interface.viewChat
+import com.callisdairy.Interface.viewPests
 import com.callisdairy.R
 import com.callisdairy.UI.Activities.OneToOneChatActivity
 import com.callisdairy.UI.Activities.PetDescriptionActivity
@@ -29,14 +38,14 @@ import com.callisdairy.UI.Activities.ProductDescriptionActivity
 import com.callisdairy.UI.Activities.ServiceDescriptionActivity
 import com.callisdairy.Utils.Progresss
 import com.callisdairy.Utils.Resource
+import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.api.response.FavPetDocs
 import com.callisdairy.api.response.FavProductDocs
 import com.callisdairy.api.response.FavServiceDocs
 import com.callisdairy.databinding.FragmentFavoritesBinding
-import com.callisdairy.viewModel.FavoritesViewModel
-import com.callisdairy.Utils.SavedPrefManager
-import com.callisdairy.extension.setSafeOnClickListener
 import com.callisdairy.extension.androidExtension
+import com.callisdairy.extension.setSafeOnClickListener
+import com.callisdairy.viewModel.FavoritesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -120,6 +129,15 @@ class FavoritesFragment : Fragment(), viewPests, viewChat, LikeUnlikePet, servic
     var loaderFlagProduct = true
     var favProductData = ArrayList<FavProductDocs>()
 
+    companion object {
+        fun newInstance(): FavoritesFragment {
+            return FavoritesFragment()
+        }
+    }
+
+    fun setData(passedKey: String) {
+        flag = passedKey
+    }
 
 
 

@@ -1,5 +1,6 @@
 package com.callisdairy.UI.Activities.AgoraCalling
 
+import RequestPermission
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
@@ -23,11 +24,11 @@ import com.callisdairy.R
 import com.callisdairy.Utils.Resource
 import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.databinding.ActivityVoiceCallBinding
-import com.callisdairy.viewModel.AgoraVideoCallingViewModel
 import com.callisdairy.extension.androidExtension
+import com.callisdairy.viewModel.AgoraVideoCallingViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import io.agora.rtc.IRtcEngineEventHandler
-import io.agora.rtc.RtcEngine
+import io.agora.rtc2.IRtcEngineEventHandler
+import io.agora.rtc2.RtcEngine
 import kotlinx.coroutines.launch
 
 
@@ -50,7 +51,7 @@ class VoiceCallActivity : AppCompatActivity() {
     }
 
     // Fill the temp token generated on Agora Console.
-    private var mRtcEngine: RtcEngine ?= null
+    private var mRtcEngine: RtcEngine?= null
 
     private val viewModel: AgoraVideoCallingViewModel by viewModels()
 

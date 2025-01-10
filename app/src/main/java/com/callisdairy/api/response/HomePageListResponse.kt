@@ -1,6 +1,5 @@
 package com.callisdairy.api.response
 
-import com.callisdairy.Socket.MediaResult
 import com.google.gson.annotations.SerializedName
 
 class HomePageListResponse(

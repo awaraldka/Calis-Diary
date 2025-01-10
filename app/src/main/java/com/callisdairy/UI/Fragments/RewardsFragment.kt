@@ -18,10 +18,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.callisdairy.R
 import com.callisdairy.Utils.Progresss
 import com.callisdairy.Utils.Resource
-import com.callisdairy.databinding.FragmentRewardsBinding
-import com.callisdairy.viewModel.RewardsViewModel
 import com.callisdairy.Utils.SavedPrefManager
+import com.callisdairy.databinding.FragmentRewardsBinding
 import com.callisdairy.extension.androidExtension
+import com.callisdairy.viewModel.RewardsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

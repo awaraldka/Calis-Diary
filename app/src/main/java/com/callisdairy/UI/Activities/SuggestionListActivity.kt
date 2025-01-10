@@ -2,12 +2,12 @@ package com.callisdairy.UI.Activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.LinearLayout
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.lifecycleScope
@@ -17,11 +17,11 @@ import com.callisdairy.Interface.SuggestionListClick
 import com.callisdairy.R
 import com.callisdairy.Utils.Progresss
 import com.callisdairy.Utils.Resource
+import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.api.response.suggestionListDocs
 import com.callisdairy.databinding.ActivitySuggestionListBinding
-import com.callisdairy.viewModel.SuggestionListViewModel
-import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.extension.androidExtension
+import com.callisdairy.viewModel.SuggestionListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

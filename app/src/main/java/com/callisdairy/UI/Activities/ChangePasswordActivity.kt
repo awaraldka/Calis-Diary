@@ -1,25 +1,25 @@
 package com.callisdairy.UI.Activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.callisdairy.Interface.Finish
 import com.callisdairy.R
 import com.callisdairy.Socket.SocketManager
 import com.callisdairy.Utils.Progresss
 import com.callisdairy.Utils.Resource
+import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.Validations.FormValidations
 import com.callisdairy.databinding.ActivityChangePasswordBinding
-import com.callisdairy.viewModel.ChangePasswordViewModel
-import com.callisdairy.Utils.SavedPrefManager
-import com.callisdairy.extension.setSafeOnClickListener
-import com.google.gson.JsonObject
 import com.callisdairy.extension.androidExtension
+import com.callisdairy.extension.setSafeOnClickListener
+import com.callisdairy.viewModel.ChangePasswordViewModel
+import com.google.gson.JsonObject
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

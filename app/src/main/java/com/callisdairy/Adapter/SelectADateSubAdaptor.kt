@@ -4,17 +4,13 @@ package com.callisdairy.Adapter
 import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.callisdairy.Interface.AppointmentListener
 import com.callisdairy.Interface.GetTime
 import com.callisdairy.R
 import com.callisdairy.Utils.DateFormat
 import com.callisdairy.api.response.AppointmentAllSlotTimes
-import com.callisdairy.databinding.SelectADateModalClassBinding
 import com.callisdairy.databinding.SelectADateSubModalClassBinding
 
 

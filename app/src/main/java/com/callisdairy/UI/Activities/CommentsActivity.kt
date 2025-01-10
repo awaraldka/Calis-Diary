@@ -14,11 +14,22 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.OptIn
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.common.util.Util
+import androidx.media3.datasource.DataSource
+import androidx.media3.datasource.DefaultHttpDataSource
+import androidx.media3.datasource.cache.CacheDataSource
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.source.MediaSource
+import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.callisdairy.Adapter.CommentsAdapter
@@ -30,7 +41,9 @@ import com.callisdairy.Interface.MorOptionsClick
 import com.callisdairy.Interface.ViewReply
 import com.callisdairy.ModalClass.CommentsModelClass
 import com.callisdairy.R
-import com.callisdairy.R.*
+import com.callisdairy.R.id
+import com.callisdairy.R.layout
+import com.callisdairy.R.style
 import com.callisdairy.Socket.SocketManager
 import com.callisdairy.UI.Fragments.autoPlayVideo.PlayerViewAdapter
 import com.callisdairy.UI.dialogs.ImageShowDialog
@@ -38,26 +51,19 @@ import com.callisdairy.Utils.Home
 import com.callisdairy.Utils.Home.showKeyboard
 import com.callisdairy.Utils.Progresss
 import com.callisdairy.Utils.Resource
+import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.api.response.CommentListDocs
+import com.callisdairy.api.response.MediaUrls
 import com.callisdairy.api.response.RepliesListDocs
 import com.callisdairy.databinding.ActivityCommentsBinding
-import com.callisdairy.viewModel.CommentsViewModel
-import com.callisdairy.Utils.SavedPrefManager
-import com.callisdairy.api.response.MediaUrls
+import com.callisdairy.extension.androidExtension
 import com.callisdairy.extension.setSafeOnClickListener
-import com.google.android.exoplayer2.*
-import com.google.android.exoplayer2.source.ProgressiveMediaSource
-import com.google.android.exoplayer2.upstream.DataSource
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
-import com.google.android.exoplayer2.upstream.cache.CacheDataSourceFactory
-import com.google.android.exoplayer2.util.Util
+import com.callisdairy.viewModel.CommentsViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.callisdairy.extension.androidExtension
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-
 
 @AndroidEntryPoint
 class CommentsActivity : AppCompatActivity(), HomeComments, ViewReply, DeleteClick,
@@ -111,7 +117,7 @@ class CommentsActivity : AppCompatActivity(), HomeComments, ViewReply, DeleteCli
     lateinit var changeComment:LinearLayout
     lateinit var editComment:EditText
 
-    private var exoPlayer : SimpleExoPlayer? = null
+    private var exoPlayer : ExoPlayer? = null
 
 
     var commentData = ArrayList<CommentListDocs>()
@@ -127,7 +133,7 @@ class CommentsActivity : AppCompatActivity(), HomeComments, ViewReply, DeleteCli
         binding = ActivityCommentsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         window.attributes.windowAnimations = style.Fade
-        exoPlayer = ExoPlayerFactory.newSimpleInstance(this)
+        exoPlayer = ExoPlayer.Builder(this).build()
         intent.getStringExtra("_id")?.let {
             postId = it
         }
@@ -303,41 +309,46 @@ class CommentsActivity : AppCompatActivity(), HomeComments, ViewReply, DeleteCli
         }
     }
 
-    private fun playVideo(url:String) {
-
+    @OptIn(UnstableApi::class)
+    private fun playVideo(url: String) {
+        // Set up the PlayerView
         binding.itemVideoExoplayer.player = exoPlayer
         binding.itemVideoExoplayer.keepScreenOn = true
         binding.itemVideoExoplayer.controllerAutoShow = false
         binding.itemVideoExoplayer.controllerHideOnTouch = true
         binding.itemVideoExoplayer.useController = false
 
-        exoPlayer!!.repeatMode = Player.REPEAT_MODE_ALL
+        // Set repeat mode
+        exoPlayer?.repeatMode = Player.REPEAT_MODE_ALL
 
-        mediaDataSourceFactory = CacheDataSourceFactory(
-            CalisApp.simpleCache,
-            DefaultHttpDataSourceFactory(
-                Util.getUserAgent(
-                    this,
-                    Util.getUserAgent(this, getString(string.app_name))
+        // Create a data source factory
+        val upstreamDataSourceFactory = DefaultHttpDataSource.Factory()
+            .setUserAgent(Util.getUserAgent(applicationContext, getString(R.string.app_name)))
+
+        val mediaDataSourceFactory = CalisApp.simpleCache?.let {
+            CacheDataSource.Factory()
+                .setCache(it) // Set the cache
+                .setUpstreamDataSourceFactory(
+                    upstreamDataSourceFactory
                 )
-            )
-        )
-        val mediaSource = ProgressiveMediaSource.Factory(mediaDataSourceFactory).createMediaSource(
-            Uri.parse(url)
-        )
-        exoPlayer?.prepare(mediaSource, false, false)
+        }
 
+        // Create a media source
+        val mediaSource: MediaSource = ProgressiveMediaSource.Factory(mediaDataSourceFactory!!)
+            .createMediaSource(MediaItem.fromUri(Uri.parse(url)))
+
+        // Prepare the player with the media source
+        exoPlayer?.setMediaSource(mediaSource)
+        exoPlayer?.prepare()
         exoPlayer?.playWhenReady = true // Auto play video
 
-        binding.itemVideoExoplayer.player = exoPlayer
-
-        exoPlayer?.addListener(object : Player.EventListener {
+        // Add a listener to the player
+        exoPlayer?.addListener(object : Player.Listener {
             override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
                 super.onPlayerStateChanged(playWhenReady, playbackState)
 
                 when (playbackState) {
                     Player.STATE_BUFFERING -> {
-
                         binding.thumbnail.visibility = View.VISIBLE
                         binding.progressBar.visibility = View.VISIBLE
                     }
@@ -348,8 +359,8 @@ class CommentsActivity : AppCompatActivity(), HomeComments, ViewReply, DeleteCli
                 }
             }
         })
-
     }
+
 
 
     private fun commentAdapter(){
@@ -620,7 +631,7 @@ class CommentsActivity : AppCompatActivity(), HomeComments, ViewReply, DeleteCli
 
         } else {
             commentData[postPosition].isLiked = false
-            commentData[postPosition].likeCount = commentData[postPosition].likeCount - 1
+            commentData[postPosition].likeCount -= 1
             Adapter.notifyItemChanged(position)
             Adapter.notifyItemRangeChanged(position, commentData.size)
             Adapter.notifyDataSetChanged()

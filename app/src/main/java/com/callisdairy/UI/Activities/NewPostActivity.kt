@@ -38,10 +38,15 @@ import com.callisdairy.Interface.RemoveImage
 import com.callisdairy.R
 import com.callisdairy.Socket.SocketManager
 import com.callisdairy.UI.Fragments.autoPlayVideo.toast
-import com.callisdairy.Utils.*
+import com.callisdairy.Utils.CommonForImages
+import com.callisdairy.Utils.DialogUtils
 import com.callisdairy.Utils.Home.flagHome
+import com.callisdairy.Utils.Progresss
+import com.callisdairy.Utils.Resource
+import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.api.response.TagPeopleDocs
 import com.callisdairy.databinding.ActivityNewPostBinding
+import com.callisdairy.extension.androidExtension
 import com.callisdairy.extension.setSafeOnClickListener
 import com.callisdairy.viewModel.GoogleLocationApiViewModel
 import com.callisdairy.viewModel.TagPeopleViewModel
@@ -54,7 +59,6 @@ import com.esafirm.imagepicker.model.Image
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.kanabix.api.LocationPrediction
-import com.callisdairy.extension.androidExtension
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

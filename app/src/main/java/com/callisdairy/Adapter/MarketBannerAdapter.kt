@@ -6,6 +6,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.media3.common.Player
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.callisdairy.Interface.BannerSliderListener
@@ -16,9 +17,6 @@ import com.callisdairy.UI.Fragments.autoPlayVideo.PlayerViewAdapter.Companion.lo
 import com.callisdairy.api.response.BannerListDocs
 import com.callisdairy.databinding.SliderImageBinding
 import com.callisdairy.extension.setSafeOnClickListener
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
 
 
 class MarketBannerAdapter(

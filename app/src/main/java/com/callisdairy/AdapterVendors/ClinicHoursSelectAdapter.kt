@@ -13,7 +13,9 @@ import com.callisdairy.R
 import com.callisdairy.databinding.ClinicHoursBinding
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class ClinicHoursSelectAdapter(
     private val context: Context,

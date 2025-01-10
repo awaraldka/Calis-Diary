@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -33,17 +33,17 @@ import com.callisdairy.UI.Activities.CommonActivityForViewActivity
 import com.callisdairy.UI.Activities.EditProfileActivity
 import com.callisdairy.Utils.Progresss
 import com.callisdairy.Utils.Resource
+import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.api.response.MyPetListDocs
 import com.callisdairy.api.response.MyPostDocs
 import com.callisdairy.databinding.FragmentMyProfileBinding
-import com.callisdairy.viewModel.ProfileViewModel
-import com.callisdairy.Utils.SavedPrefManager
+import com.callisdairy.extension.androidExtension
 import com.callisdairy.extension.setSafeOnClickListener
+import com.callisdairy.viewModel.ProfileViewModel
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.models.SlideModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.callisdairy.extension.androidExtension
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -109,6 +109,11 @@ class MyProfileFragment : Fragment(), ViewPetFromProfile, ViewPost {
 
     lateinit var dialogs:BottomSheetDialog
 
+        companion object {
+            fun newInstance(): MyProfileFragment {
+                return MyProfileFragment()
+            }
+        }
 
 
     private val viewModel: ProfileViewModel by viewModels()

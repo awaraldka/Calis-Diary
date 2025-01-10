@@ -6,17 +6,9 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.callisdairy.Interface.RemoveImage
 import com.callisdairy.Interface.UnBlockUser
-import com.callisdairy.ModalClass.BlockDoctorData
-import com.callisdairy.ModalClass.BlockUserData
-import com.callisdairy.ModalClass.addPetRequest
-import com.callisdairy.api.request.mediaUrls
 import com.callisdairy.api.response.AppointmentListUserId
-import com.callisdairy.databinding.BlockUnblockClientBinding
 import com.callisdairy.databinding.BlockUnblockDoctorBinding
-import com.callisdairy.databinding.ViewSelectedValueBinding
-import java.util.ArrayList
 
 class BlockDoctorAdapter(val context: Context, var mArrayUri: List<AppointmentListUserId>,val click: UnBlockUser):RecyclerView.Adapter<BlockDoctorAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

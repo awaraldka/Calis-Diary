@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.callisdairy.Interface.PopupItemClickListener
-import com.callisdairy.ModalClass.DialogData
 import com.callisdairy.R
-import com.callisdairy.UI.Activities.Signup
 import com.callisdairy.api.response.CountryList
 
 

@@ -1,5 +1,6 @@
 package com.callisdairy.UI.Activities
 
+import RequestPermission
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
@@ -24,15 +25,21 @@ import com.callisdairy.UI.Fragments.autoPlayVideo.toast
 import com.callisdairy.Utils.CommonConverter
 import com.callisdairy.Utils.Progresss
 import com.callisdairy.Utils.Resource
-import com.callisdairy.Validations.FormValidations
-import com.callisdairy.api.request.LoginRequest
-import com.callisdairy.databinding.ActivityLoginBinding
-import com.callisdairy.viewModel.LoginViewModel
 import com.callisdairy.Utils.SavedPrefManager
+import com.callisdairy.Validations.FormValidations
 import com.callisdairy.api.Constants
+import com.callisdairy.api.request.LoginRequest
 import com.callisdairy.api.response.KeysData
+import com.callisdairy.databinding.ActivityLoginBinding
+import com.callisdairy.extension.androidExtension
 import com.callisdairy.extension.setSafeOnClickListener
-import com.facebook.*
+import com.callisdairy.viewModel.LoginViewModel
+import com.facebook.AccessToken
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.GraphRequest
+import com.facebook.Profile
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -44,7 +51,6 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.JsonObject
-import com.callisdairy.extension.androidExtension
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.json.JSONException

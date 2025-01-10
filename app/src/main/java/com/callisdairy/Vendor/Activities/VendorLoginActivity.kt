@@ -1,10 +1,10 @@
 package com.callisdairy.Vendor.Activities
 
+import RequestPermission
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.Html
@@ -14,10 +14,11 @@ import android.text.method.PasswordTransformationMethod
 import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.lifecycleScope
 import com.callisdairy.R
-import com.callisdairy.UI.Activities.*
+import com.callisdairy.UI.Activities.ForgotPassword
 import com.callisdairy.Utils.CommonConverter
 import com.callisdairy.Utils.Progresss
 import com.callisdairy.Utils.Resource
@@ -27,10 +28,10 @@ import com.callisdairy.api.Constants
 import com.callisdairy.api.request.LoginRequest
 import com.callisdairy.api.response.KeysData
 import com.callisdairy.databinding.ActivityVendorLoginBinding
+import com.callisdairy.extension.androidExtension
 import com.callisdairy.viewModel.LoginViewModel
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
-import com.callisdairy.extension.androidExtension
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.json.JSONObject

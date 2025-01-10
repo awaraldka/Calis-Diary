@@ -5,29 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.callisdairy.Interface.RemoveImage
-import com.callisdairy.ModalClass.AppointmentData
-import com.callisdairy.ModalClass.BlockUserData
-import com.callisdairy.ModalClass.addPetRequest
 import com.callisdairy.ModalClass.feedbackDetails
 import com.callisdairy.R
 import com.callisdairy.Utils.DateFormat
 import com.callisdairy.Vendor.Activities.CommonContainerActivity
-import com.callisdairy.Vendor.Activities.DoctorRoleActivity
-import com.callisdairy.api.request.mediaUrls
-import com.callisdairy.api.response.Appointment
 import com.callisdairy.api.response.UserFeedBackListDocs
-import com.callisdairy.databinding.AppointmentListBinding
-import com.callisdairy.databinding.BlockUnblockClientBinding
 import com.callisdairy.databinding.FeedbackClientBinding
-import com.callisdairy.databinding.ViewSelectedValueBinding
 import com.callisdairy.extension.setSafeOnClickListener
-import java.text.SimpleDateFormat
-import java.util.ArrayList
-import java.util.Locale
 
 class FeedbackListAdapter(val context: Context, var dataFeedback: List<UserFeedBackListDocs>):RecyclerView.Adapter<FeedbackListAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

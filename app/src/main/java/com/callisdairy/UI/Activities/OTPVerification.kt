@@ -24,9 +24,9 @@ import com.callisdairy.Utils.Progresss
 import com.callisdairy.Utils.Resource
 import com.callisdairy.Validations.FormValidations
 import com.callisdairy.databinding.ActivityOtpverficationBinding
+import com.callisdairy.extension.androidExtension
 import com.callisdairy.viewModel.OtpVerifyViewModel
 import com.google.gson.JsonObject
-import com.callisdairy.extension.androidExtension
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 

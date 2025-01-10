@@ -1,11 +1,22 @@
 package com.callisdairy.UI.Activities
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.callisdairy.R
 import com.callisdairy.Socket.SocketManager
-import com.callisdairy.UI.Fragments.*
+import com.callisdairy.UI.Fragments.AccountPrivacyFragment
+import com.callisdairy.UI.Fragments.BlockUnBlockDoctorFragment
+import com.callisdairy.UI.Fragments.DoctorVetFragment
+import com.callisdairy.UI.Fragments.ListedPetFragment
+import com.callisdairy.UI.Fragments.MakeAppointmentFragment
+import com.callisdairy.UI.Fragments.MarketProductCategoryFragment
+import com.callisdairy.UI.Fragments.MissingPetDescriptionFragment
+import com.callisdairy.UI.Fragments.MyEventListFragment
+import com.callisdairy.UI.Fragments.PetDescriptionFragment
+import com.callisdairy.UI.Fragments.ServiceCategoryMarketFragment
+import com.callisdairy.UI.Fragments.ViewDoctorVetFragment
+import com.callisdairy.UI.Fragments.ViewUserAppointmentHistoryFragment
 import com.callisdairy.UI.Fragments.postview.PostViewFragment
 import com.callisdairy.UI.Fragments.profile.FollowUnfollowFragment
 import com.callisdairy.UI.Fragments.profile.UserProfileFragment

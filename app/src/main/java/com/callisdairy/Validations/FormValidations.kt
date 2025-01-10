@@ -4,7 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.view.View
-import android.widget.*
+import android.widget.CheckBox
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.Spinner
+import android.widget.TextView
 import androidx.core.view.isVisible
 import com.callisdairy.R
 import com.callisdairy.UI.Activities.AddPetProfileActivity

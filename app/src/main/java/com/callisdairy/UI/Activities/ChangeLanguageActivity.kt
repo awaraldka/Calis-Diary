@@ -19,13 +19,12 @@ import com.callisdairy.Utils.Resource
 import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.Vendor.Activities.VendorContainerActivity
 import com.callisdairy.databinding.ActivityChangeLanuageBinding
+import com.callisdairy.extension.androidExtension
 import com.callisdairy.extension.setSafeOnClickListener
 import com.callisdairy.viewModel.PetProfileViewModel
-import com.callisdairy.extension.androidExtension
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class ChangeLanguageActivity : AppCompatActivity(), LocalizationClick {

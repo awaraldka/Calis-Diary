@@ -2,7 +2,6 @@ package com.callisdairy.UI.Fragments
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,14 +9,20 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.callisdairy.CalisApp
 import com.callisdairy.Interface.Logout
 import com.callisdairy.R
-import com.callisdairy.UI.Activities.*
+import com.callisdairy.UI.Activities.ChangeProfileActivity
+import com.callisdairy.UI.Activities.CommonActivityForViewActivity
+import com.callisdairy.UI.Activities.HelpActivity
+import com.callisdairy.UI.Activities.SettingsActivity
+import com.callisdairy.UI.Activities.TrackingDeviceActivity
 import com.callisdairy.Utils.ClearCache
+import com.callisdairy.Utils.Home.activeFragment
 import com.callisdairy.Utils.Home.data
 import com.callisdairy.Utils.Home.suggestedUserData
 import com.callisdairy.Utils.Progresss
@@ -25,9 +30,9 @@ import com.callisdairy.Utils.Resource
 import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.Vendor.ChooseTypeActivity
 import com.callisdairy.databinding.FragmentMenuBinding
+import com.callisdairy.extension.androidExtension
 import com.callisdairy.extension.setSafeOnClickListener
 import com.callisdairy.viewModel.LoginViewModel
-import com.callisdairy.extension.androidExtension
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -76,6 +81,11 @@ class MenuFragment : Fragment(),Logout {
 
     private val viewModel:LoginViewModel by viewModels()
 
+    companion object {
+        fun newInstance(): MenuFragment {
+            return MenuFragment()
+        }
+    }
 
 
     override fun onCreateView(
@@ -154,10 +164,10 @@ class MenuFragment : Fragment(),Logout {
         }
 
         binding.EventsMenu.setOnClickListener {
-
-            parentFragmentManager?.beginTransaction()
-                ?.replace(R.id.home_container, EventListFragment())
-                ?.addToBackStack(null)?.commit()
+            activeFragment = EventListFragment()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.home_container, EventListFragment())
+                .addToBackStack(null).commit()
         }
 
         binding.MissingPetsMenu.setOnClickListener {

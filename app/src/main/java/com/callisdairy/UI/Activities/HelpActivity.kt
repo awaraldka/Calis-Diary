@@ -1,12 +1,11 @@
 package com.callisdairy.UI.Activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.callisdairy.R
 import com.callisdairy.databinding.ActivityHelpBinding
-import com.callisdairy.databinding.ActivitySettingsBinding
 import com.callisdairy.extension.setSafeOnClickListener
 
 class HelpActivity : AppCompatActivity() {

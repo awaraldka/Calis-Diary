@@ -65,13 +65,13 @@ import com.callisdairy.api.response.MediaUrls
 import com.callisdairy.api.response.UserStoriesDoc
 import com.callisdairy.api.response.suggestionListDocs
 import com.callisdairy.databinding.FragmentHomeBinding
+import com.callisdairy.extension.androidExtension
 import com.callisdairy.extension.setSafeOnClickListener
 import com.callisdairy.viewModel.HomeViewModel
 import com.callisdairy.viewModel.SuggestionListViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.callisdairy.extension.androidExtension
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -80,7 +80,6 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 @AndroidEntryPoint
@@ -199,6 +198,12 @@ class HomeFragment : Fragment(), HomeUserProfileView, HomeLikePost , MorOptionsC
 
 
     private var isStoryViewVisible = true
+
+
+    companion object{
+        @JvmStatic
+        fun newInstance() = HomeFragment()
+    }
 
 
     override fun onCreateView(
@@ -657,7 +662,7 @@ class HomeFragment : Fragment(), HomeUserProfileView, HomeLikePost , MorOptionsC
         startActivity(intent)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    /*@SuppressLint("NotifyDataSetChanged")
     override fun likePost(
         _id: String,
         likedValue: Boolean,
@@ -707,7 +712,59 @@ class HomeFragment : Fragment(), HomeUserProfileView, HomeLikePost , MorOptionsC
         }
 
         viewModel.addLikeApi(token,"POST",_id,"")
+    }*/
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun likePost(
+        _id: String,
+        likedValue: Boolean,
+        unlikePost: ImageView,
+        likePost: ImageView,
+        position: Int
+    ) {
+        unlikePostView = unlikePost
+        likePostView = likePost
+        postPosition = position
+
+        if (unlikePostView.isVisible) {
+            data[postPosition].isLiked = true
+            data[postPosition].likeCount++
+        } else {
+            data[postPosition].isLiked = false
+            data[postPosition].likeCount--
+        }
+
+        // Notify only like/unlike state change
+        homePostAdapter.notifyItemChanged(position, "liked")
+
+        // Make the API call
+        viewModel.addLikeApi(token, "POST", _id, "")
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun likePostText(
+        _id: String,
+        likedValue: Boolean,
+        unlikePost: ImageView,
+        likePost: ImageView,
+        position: Int
+    ) {
+        if (unlikePost.isVisible) {
+            data[position].isLiked = true
+            data[position].likeCount++
+        } else {
+            data[position].isLiked = false
+            data[position].likeCount--
+        }
+
+        // Notify only like/unlike state change
+        homePostAdapter.notifyItemChanged(position, "liked")
+
+        // Make the API call
+        viewModel.addLikeApi(token, "POST", _id, "")
+    }
+
+
 
     override fun commentView(position: Int, id: String) {
         positionPost = position

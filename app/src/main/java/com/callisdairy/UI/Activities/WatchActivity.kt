@@ -3,35 +3,37 @@ package com.callisdairy.UI.Activities
 
 import android.annotation.SuppressLint
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import androidx.annotation.OptIn
+import androidx.appcompat.app.AppCompatActivity
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.datasource.DataSource
+import androidx.media3.datasource.DefaultHttpDataSource
+import androidx.media3.datasource.cache.CacheDataSource
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.source.MediaSource
+import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import com.callisdairy.CalisApp
 import com.callisdairy.R
-import com.google.android.exoplayer2.Player
 import com.callisdairy.databinding.ActivityWatchBinding
-import com.google.android.exoplayer2.ExoPlayerFactory
-import com.google.android.exoplayer2.SimpleExoPlayer
-import com.google.android.exoplayer2.source.ProgressiveMediaSource
-import com.google.android.exoplayer2.upstream.DataSource
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
-import com.google.android.exoplayer2.upstream.cache.CacheDataSourceFactory
-import com.google.android.exoplayer2.util.Util
 
 class WatchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWatchBinding
 
-    private var exoPlayer : SimpleExoPlayer? = null
+    private var exoPlayer : ExoPlayer? = null
 
     lateinit var handler : Handler
     var url = ""
     private lateinit var mediaDataSourceFactory: DataSource.Factory
 
 
-    @SuppressLint("ResourceAsColor")
+    @OptIn(UnstableApi::class) @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         handler = Handler(Looper.getMainLooper())
@@ -49,7 +51,8 @@ class WatchActivity : AppCompatActivity() {
             finishAfterTransition()
         }
 
-        exoPlayer = ExoPlayerFactory.newSimpleInstance(this)
+
+        exoPlayer = ExoPlayer.Builder(this).build()
         binding.itemVideoExoplayer.player = exoPlayer
         binding.itemVideoExoplayer.keepScreenOn = true
         binding.itemVideoExoplayer.controllerAutoShow = false
@@ -60,18 +63,19 @@ class WatchActivity : AppCompatActivity() {
 
         exoPlayer?.playWhenReady = true
 
-        mediaDataSourceFactory = CacheDataSourceFactory(
-            CalisApp.simpleCache,
-            DefaultHttpDataSourceFactory(
-                Util.getUserAgent(
-                    this,
-                    Util.getUserAgent(this, getString(R.string.app_name))
+        mediaDataSourceFactory = CalisApp.simpleCache?.let {
+            CacheDataSource.Factory()
+                .setCache(it) // Set the cache
+                .setUpstreamDataSourceFactory(
+                    DefaultHttpDataSource.Factory(
+                        //                    Util.getUserAgent(this, getString(R.string.app_name))
+                    )
                 )
-            )
-        )
-        val mediaSource = ProgressiveMediaSource.Factory(mediaDataSourceFactory).createMediaSource(
-            Uri.parse(url)
-        )
+        }!!
+
+        val mediaSource: MediaSource = ProgressiveMediaSource.Factory(mediaDataSourceFactory!!)
+            .createMediaSource(MediaItem.fromUri(Uri.parse(url)))
+
         exoPlayer?.prepare(mediaSource, false, false)
 
 
@@ -79,7 +83,7 @@ class WatchActivity : AppCompatActivity() {
 
 
 
-        exoPlayer?.addListener(object : Player.EventListener {
+        exoPlayer?.addListener(object : Player.Listener {
 
             override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
                 super.onPlayerStateChanged(playWhenReady, playbackState)

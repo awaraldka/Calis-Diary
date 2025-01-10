@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -31,13 +31,13 @@ import com.callisdairy.UI.dialogs.MoreOnPostDialog
 import com.callisdairy.Utils.DateFormat
 import com.callisdairy.Utils.Progresss
 import com.callisdairy.Utils.Resource
-import com.callisdairy.api.response.MediaUrls
-import com.callisdairy.databinding.FragmentPostViewBinding
-import com.callisdairy.viewModel.ViewPostViewModel
 import com.callisdairy.Utils.SavedPrefManager
+import com.callisdairy.api.response.MediaUrls
 import com.callisdairy.api.response.ViewPostResult
-import com.callisdairy.extension.setSafeOnClickListener
+import com.callisdairy.databinding.FragmentPostViewBinding
 import com.callisdairy.extension.androidExtension
+import com.callisdairy.extension.setSafeOnClickListener
+import com.callisdairy.viewModel.ViewPostViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

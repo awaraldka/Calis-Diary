@@ -1,9 +1,7 @@
 package com.callisdairy.Utils
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -12,12 +10,9 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.provider.OpenableColumns
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.Nullable
 import androidx.exifinterface.media.ExifInterface
 import com.callisdairy.R
-import com.callisdairy.Validations.FormValidations.startActivityForResult
-import com.theartofdev.edmodo.cropper.CropImage
 import java.io.*
 import java.util.Base64
 import java.util.UUID

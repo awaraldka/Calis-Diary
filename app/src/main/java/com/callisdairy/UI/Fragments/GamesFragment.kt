@@ -1,13 +1,12 @@
 package com.callisdairy.UI.Fragments
 
-import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.callisdairy.R
 import com.callisdairy.extension.setSafeOnClickListener
 

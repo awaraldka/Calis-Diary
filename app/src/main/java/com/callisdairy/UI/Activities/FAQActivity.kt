@@ -1,10 +1,10 @@
 package com.callisdairy.UI.Activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.callisdairy.Adapter.FAQsAdapter
@@ -15,8 +15,8 @@ import com.callisdairy.Utils.Resource
 import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.api.response.FaqResult
 import com.callisdairy.databinding.ActivityFaqactivityBinding
-import com.callisdairy.viewModel.FaqViewModel
 import com.callisdairy.extension.androidExtension
+import com.callisdairy.viewModel.FaqViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

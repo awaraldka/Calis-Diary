@@ -4,19 +4,15 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.callisdairy.R
 import com.callisdairy.Socket.chatDataResult
-import com.callisdairy.Socket.chatList
-import com.callisdairy.Socket.chatListResult
 import com.callisdairy.UI.Activities.OneToOneChatActivity
 import com.callisdairy.Utils.DateFormat
 import com.callisdairy.Utils.SavedPrefManager
-import com.callisdairy.api.response.CountryList
 import com.callisdairy.databinding.ChatsModellayoutBinding
 
 class ChatsAdapter(var context: Context, var data: ArrayList<chatDataResult>) : RecyclerView.Adapter<ChatsAdapter.ViewHolder>() {

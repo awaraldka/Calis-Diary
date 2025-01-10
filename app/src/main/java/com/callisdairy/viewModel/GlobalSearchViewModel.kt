@@ -1,20 +1,14 @@
 package com.callisdairy.viewModel
 
 import android.app.Application
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.callisdairy.CalisApp
 import com.callisdairy.ModalClass.PojoClass
 import com.callisdairy.Repositry.CalisRespository
 import com.callisdairy.Utils.NetworkHelper
 import com.callisdairy.Utils.Resource
 import com.callisdairy.api.Constants
 import com.callisdairy.api.response.AddToIntrestedResponse
-import com.callisdairy.api.response.FavPetResponse
 import com.callisdairy.api.response.GlobalSearchResponse
 import com.google.gson.GsonBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel

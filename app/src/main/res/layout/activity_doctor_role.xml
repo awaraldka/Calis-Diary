@@ -1331,7 +1331,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_160sdp">
 
-                    <com.github.barteksc.pdfviewer.PDFView
+                    <com.callisdairy.pdfreader.PdfRendererView
                         android:id="@+id/certificateImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

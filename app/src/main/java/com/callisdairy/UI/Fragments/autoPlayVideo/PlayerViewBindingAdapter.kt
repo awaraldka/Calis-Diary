@@ -8,15 +8,21 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.annotation.OptIn
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.common.util.Util
+import androidx.media3.datasource.DataSource
+import androidx.media3.datasource.DefaultHttpDataSource
+import androidx.media3.datasource.cache.CacheDataSource
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.source.MediaSource
+import androidx.media3.exoplayer.source.ProgressiveMediaSource
+import androidx.media3.ui.PlayerView
 import com.callisdairy.CalisApp
 import com.callisdairy.R
-import com.google.android.exoplayer2.*
-import com.google.android.exoplayer2.source.ProgressiveMediaSource
-import com.google.android.exoplayer2.ui.PlayerView
-import com.google.android.exoplayer2.upstream.DataSource
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
-import com.google.android.exoplayer2.upstream.cache.CacheDataSourceFactory
-import com.google.android.exoplayer2.util.Util
+
 
 
 // extension function for show toast
@@ -31,7 +37,7 @@ class PlayerViewAdapter {
         private var playersMap: MutableMap<Int, ExoPlayer>  = mutableMapOf()
         // for hold current player
 
-        private var exoPlayer : SimpleExoPlayer? = null
+        private var exoPlayer : ExoPlayer? = null
         private lateinit var mediaDataSourceFactory: DataSource.Factory
 
         private var currentPlayingVideo: Pair<Int, ExoPlayer>? = null
@@ -76,10 +82,10 @@ class PlayerViewAdapter {
         * thumbnail for show before video start
         * */
 
-        @JvmStatic
+        @OptIn(UnstableApi::class) @JvmStatic
         fun PlayerView.loadVideo(url: String, callback: PlayerStateCallback, progressbar: ProgressBar, thumbnail: ImageView, item_index: Int? = null, autoPlay: Boolean = false) {
             if (url == null) return
-            exoPlayer = ExoPlayerFactory.newSimpleInstance(context)
+            exoPlayer = ExoPlayer.Builder(context).build()
 
 
             Log.e(TAG, "loadVideo: $item_index")
@@ -98,18 +104,21 @@ class PlayerViewAdapter {
 
             // Provide url to load the video from here
 //            val mediaSource = ProgressiveMediaSource.Factory(DefaultHttpDataSourceFactory("Demo")).createMediaSource(Uri.parse(url))
-            mediaDataSourceFactory = CacheDataSourceFactory(
-                CalisApp.simpleCache,
-                DefaultHttpDataSourceFactory(
-                    Util.getUserAgent(
-                        context,
-                        Util.getUserAgent(context, context.getString(R.string.app_name))
+            val upstreamDataSourceFactory = DefaultHttpDataSource.Factory()
+                .setUserAgent(Util.getUserAgent(context, context.getString(R.string.app_name)))
+
+            val mediaDataSourceFactory = CalisApp.simpleCache?.let {
+                CacheDataSource.Factory()
+                    .setCache(it) // Set the cache
+                    .setUpstreamDataSourceFactory(
+                        upstreamDataSourceFactory
                     )
-                )
-            )
-            val mediaSource = ProgressiveMediaSource.Factory(mediaDataSourceFactory).createMediaSource(
-                Uri.parse(url)
-            )
+            }
+
+            // Create a media source
+            val mediaSource: MediaSource = ProgressiveMediaSource.Factory(mediaDataSourceFactory!!)
+                .createMediaSource(MediaItem.fromUri(Uri.parse(url)))
+
             exoPlayer?.prepare(mediaSource, false, false)
 
 
@@ -123,32 +132,32 @@ class PlayerViewAdapter {
             }
 
             if (item_index != null && exoPlayer != null) {
-                playersMap[item_index] = exoPlayer as SimpleExoPlayer
+                playersMap[item_index] = exoPlayer as ExoPlayer
             }
 
 
 
 
-            exoPlayer?.addListener(object : Player.EventListener {
+            exoPlayer?.addListener(object : Player.Listener {
                 override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
                     super.onPlayerStateChanged(playWhenReady, playbackState)
 
                     when (playbackState) {
                         Player.STATE_BUFFERING -> {
-                            callback.onVideoBuffering(player)
+                            callback.onVideoBuffering(player!!)
                             progressbar.visibility = View.VISIBLE
                         }
                         Player.STATE_READY -> {
                             progressbar.visibility = View.GONE
                             thumbnail.visibility = View.GONE
-                            callback.onVideoDurationRetrieved(this@loadVideo.player!!.duration, player)
+                            callback.onVideoDurationRetrieved(this@loadVideo.player!!.duration, player!!)
                         }
 
                     }
 
-                    if (playbackState == Player.STATE_READY && player.playWhenReady){
+                    if (playbackState == Player.STATE_READY && player!!.playWhenReady){
                         // [PlayerView] has started playing/resumed the video
-                        callback.onStartedPlaying(player)
+                        callback.onStartedPlaying(player!!)
                     }
                 }
             })

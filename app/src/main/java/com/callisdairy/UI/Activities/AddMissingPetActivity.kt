@@ -43,13 +43,19 @@ import com.callisdairy.Interface.RemoveImage
 import com.callisdairy.R
 import com.callisdairy.Socket.SocketManager
 import com.callisdairy.UI.Fragments.autoPlayVideo.toast
-import com.callisdairy.Utils.*
+import com.callisdairy.Utils.CommonForImages
+import com.callisdairy.Utils.DateFormat
+import com.callisdairy.Utils.DialogUtils
+import com.callisdairy.Utils.Progresss
+import com.callisdairy.Utils.Resource
+import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.Validations.FormValidations
 import com.callisdairy.api.request.AddMissingPetRequest
 import com.callisdairy.api.response.CountryList
 import com.callisdairy.api.response.MediaUrls
 import com.callisdairy.api.response.MyPetListDocs
 import com.callisdairy.databinding.ActivityAddMissingPetBinding
+import com.callisdairy.extension.androidExtension
 import com.callisdairy.extension.setSafeOnClickListener
 import com.callisdairy.viewModel.AddMissingPetViewModel
 import com.esafirm.imagepicker.features.ImagePickerConfig
@@ -60,7 +66,6 @@ import com.esafirm.imagepicker.features.registerImagePicker
 import com.esafirm.imagepicker.model.Image
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.callisdairy.extension.androidExtension
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -68,8 +73,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.Calendar
 
 
 @AndroidEntryPoint

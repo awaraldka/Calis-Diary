@@ -1,5 +1,6 @@
 package com.callisdairy.UI.Activities.AgoraCalling
 
+import RequestPermission
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
@@ -23,17 +24,17 @@ import com.callisdairy.R
 import com.callisdairy.Utils.Resource
 import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.databinding.ActivityCallingBinding
-import com.callisdairy.viewModel.AgoraVideoCallingViewModel
 import com.callisdairy.extension.androidExtension
+import com.callisdairy.viewModel.AgoraVideoCallingViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import io.agora.rtc.IRtcEngineEventHandler
-import io.agora.rtc.RtcEngine
-import io.agora.rtc.video.VideoCanvas
-import io.agora.rtc.video.VideoEncoderConfiguration
+import io.agora.rtc2.IRtcEngineEventHandler
+import io.agora.rtc2.RtcEngine
+import io.agora.rtc2.RtcEngineConfig
+import io.agora.rtc2.video.VideoCanvas
+import io.agora.rtc2.video.VideoEncoderConfiguration
 import kotlinx.coroutines.launch
 
 private const val TAG = "Calling"
-
 
 @AndroidEntryPoint
 class Calling : AppCompatActivity() {
@@ -66,10 +67,7 @@ class Calling : AppCompatActivity() {
     var counter = 0
     var minute = 0
 
-
     private val viewModel: AgoraVideoCallingViewModel by viewModels()
-
-
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,59 +76,33 @@ class Calling : AppCompatActivity() {
         setContentView(binding.root)
         RequestPermission.requestMultiplePermissions(this)
 
-        intent.getStringExtra("userName")?.let {
-            userName = it
+        userName = intent.getStringExtra("userName") ?: ""
+        receiverId = intent.getStringExtra("receiverId") ?: ""
+        from = intent.getStringExtra("from") ?: ""
 
-        }
-
-
-        intent.getStringExtra("receiverId")?.let {
-            receiverId = it
-
-        }
-
-
-        intent.getStringExtra("from")?.let {
-            from = it
-
-        }
-
-
-        accessToken = SavedPrefManager.getStringPreferences(this,SavedPrefManager.accessToken).toString()
-        channelName = SavedPrefManager.getStringPreferences(this,SavedPrefManager.channelId).toString()
-
+        accessToken = SavedPrefManager.getStringPreferences(this, SavedPrefManager.accessToken).toString()
+        channelName = SavedPrefManager.getStringPreferences(this, SavedPrefManager.channelId).toString()
 
         // If all the permissions are granted, initialize the RtcEngine object and join a channel.
         if (checkSelfPermission(ALL_REQUESTED_PERMISSIONS[0], PERMISSION_REQUEST_ID) &&
-            checkSelfPermission(ALL_REQUESTED_PERMISSIONS[1], PERMISSION_REQUEST_ID
-            ) && checkSelfPermission(ALL_REQUESTED_PERMISSIONS[2], PERMISSION_REQUEST_ID)
+            checkSelfPermission(ALL_REQUESTED_PERMISSIONS[1], PERMISSION_REQUEST_ID) &&
+            checkSelfPermission(ALL_REQUESTED_PERMISSIONS[2], PERMISSION_REQUEST_ID)
         ) {
             initAndJoinChannel()
         }
 
+        token = SavedPrefManager.getStringPreferences(this, SavedPrefManager.Token).toString()
 
-        token = SavedPrefManager.getStringPreferences(this,SavedPrefManager.Token).toString()
-
-
-
-
-
-        if (from == "sender"){
-            binding.userName.text= "Calling $userName"
+        if (from == "sender") {
+            binding.userName.text = "Calling $userName"
             viewModel.getTokenOrIdApi(token)
-        }else{
-            binding.userName.text= "Calling $userName"
-            if (accessToken.isNotEmpty() && channelName.isNotEmpty()){
+        } else {
+            binding.userName.text = "Calling $userName"
+            if (accessToken.isNotEmpty() && channelName.isNotEmpty()) {
                 joinChannel()
                 startCall()
-
             }
         }
-
-
-
-
-
 
         binding.buttonCall.setOnClickListener {
             if (mEndCall) {
@@ -155,37 +127,24 @@ class Calling : AppCompatActivity() {
         binding.buttonMute.setOnClickListener {
             mMuted = !mMuted
             rtcEngine.muteLocalAudioStream(mMuted)
-            val res: Int = if (mMuted) {
-                R.drawable.btn_mute
-            } else {
-                R.drawable.btn_unmute
-            }
-
+            val res: Int = if (mMuted) R.drawable.btn_mute else R.drawable.btn_unmute
             binding.buttonMute.setImageResource(res)
         }
 
-
         observeAgoraResponse()
         observeNotifyAgoraResponse()
-
     }
 
     private val mRtcEventHandler = object : IRtcEngineEventHandler() {
 
         override fun onJoinChannelSuccess(channel: String?, uid: Int, elapsed: Int) {
             runOnUiThread {
-                if (from == "sender"){
-//                    toast("Video")
+                if (from == "sender") {
                     viewModel.notifyUserApi(token, receiverId, "Video")
                 }
             }
         }
 
-        /*
-         * Listen for the onFirstRemoteVideoDecoded callback.
-         * This callback occurs when the first video frame of a remote user is received and decoded after the remote user successfully joins the channel.
-         * You can call the setupRemoteVideoView method in this callback to set up the remote video view.
-         */
         override fun onFirstRemoteVideoDecoded(uid: Int, width: Int, height: Int, elapsed: Int) {
             runOnUiThread {
                 setupRemoteVideoView(uid)
@@ -194,10 +153,6 @@ class Calling : AppCompatActivity() {
             }
         }
 
-        /*
-        * Listen for the onUserOffline callback.
-        * This callback occurs when the remote user leaves the channel or drops offline.
-        */
         override fun onUserOffline(uid: Int, reason: Int) {
             runOnUiThread {
                 onRemoteUserLeft()
@@ -208,7 +163,6 @@ class Calling : AppCompatActivity() {
 
     private fun checkSelfPermission(permission: String, requestCode: Int): Boolean {
         if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-
             ActivityCompat.requestPermissions(this, ALL_REQUESTED_PERMISSIONS, requestCode)
             return false
         }
@@ -219,68 +173,53 @@ class Calling : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if (requestCode == PERMISSION_REQUEST_ID) {
-            if (
-                grantResults[0] != PackageManager.PERMISSION_GRANTED ||
+            if (grantResults[0] != PackageManager.PERMISSION_GRANTED ||
                 grantResults[1] != PackageManager.PERMISSION_GRANTED ||
                 grantResults[2] != PackageManager.PERMISSION_GRANTED
             ) {
-
                 Toast.makeText(applicationContext, "Permissions needed", Toast.LENGTH_LONG).show()
                 finish()
                 return
             }
-            // Here we continue only if all permissions are granted.
-            // The permissions can also be granted in the system settings manually.
             initAndJoinChannel()
         }
     }
 
     private fun initAndJoinChannel() {
-
-        // This is our usual steps for joining
-        // a channel and starting a call.
         initRtcEngine()
         setupVideoConfig()
         setupLocalVideoView()
-
     }
 
-    // Initialize the RtcEngine object.
     private fun initRtcEngine() {
         try {
-            val appId= SavedPrefManager.getStringPreferences(this,SavedPrefManager.AgoraAppId)
-//            toast("appId=> $appId")
-            rtcEngine = RtcEngine.create(baseContext, appId, mRtcEventHandler)
+            val appId = SavedPrefManager.getStringPreferences(this, SavedPrefManager.AgoraAppId)
+            val config = RtcEngineConfig().apply {
+                mContext = baseContext
+                mAppId = appId
+                mEventHandler = mRtcEventHandler
+            }
+            rtcEngine = RtcEngine.create(config)
         } catch (e: Exception) {
             Log.d(TAG, "initRtcEngine: $e")
         }
     }
 
-        private fun setupLocalVideoView() {
-
-            localView = RtcEngine.CreateRendererView(baseContext)
-            localView!!.setZOrderMediaOverlay(true)
-            binding.localVideoView.addView(localView)
-
-            // Set the local video view.
-            rtcEngine.setupLocalVideo(VideoCanvas(localView, VideoCanvas.RENDER_MODE_HIDDEN, 0))
-        }
+    private fun setupLocalVideoView() {
+        localView = SurfaceView(baseContext)
+        localView!!.setZOrderMediaOverlay(true)
+        binding.localVideoView.addView(localView)
+        rtcEngine.setupLocalVideo(VideoCanvas(localView, VideoCanvas.RENDER_MODE_HIDDEN, 0))
+    }
 
     private fun setupRemoteVideoView(uid: Int) {
-
-//        if (binding.remoteVideoView.childCount > 1) {
-//            return
-//        }
-        remoteView = RtcEngine.CreateRendererView(baseContext)
+        remoteView = SurfaceView(baseContext)
         binding.remoteVideoView.addView(remoteView)
-
-        rtcEngine.setupRemoteVideo(VideoCanvas(remoteView, VideoCanvas.RENDER_MODE_FILL, uid))
+        rtcEngine.setupRemoteVideo(VideoCanvas(remoteView, VideoCanvas.RENDER_MODE_FIT, uid))
     }
 
     private fun setupVideoConfig() {
-
         rtcEngine.enableVideo()
-
         rtcEngine.setVideoEncoderConfiguration(
             VideoEncoderConfiguration(
                 VideoEncoderConfiguration.VD_640x360,
@@ -291,11 +230,7 @@ class Calling : AppCompatActivity() {
         )
     }
 
-        private fun joinChannel() {
-        val token = getString(R.string.agora_token)
-        // Join a channel with a token.
-//            toast("accessToken=> $accessToken")
-//            toast("channelName=> $channelName")
+    private fun joinChannel() {
         rtcEngine.joinChannel(accessToken, channelName, "Extra Optional Data", 0)
     }
 
@@ -313,18 +248,12 @@ class Calling : AppCompatActivity() {
     }
 
     private fun removeLocalVideo() {
-        if (localView != null) {
-            binding.localVideoView.removeView(localView)
-
-        }
+        localView?.let { binding.localVideoView.removeView(it) }
         localView = null
     }
 
     private fun removeRemoteVideo() {
-        if (remoteView != null) {
-            binding.remoteVideoView.removeView(remoteView)
-
-        }
+        remoteView?.let { binding.remoteVideoView.removeView(it) }
         remoteView = null
     }
 
@@ -340,16 +269,9 @@ class Calling : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (!mEndCall) {
-            leaveChannel()
-        }
+        leaveChannel()
         RtcEngine.destroy()
-        SavedPrefManager.deleteChannelId(this)
     }
-
-
-
-
 
     private fun observeAgoraResponse() {
         lifecycleScope.launch {
@@ -454,6 +376,4 @@ class Calling : AppCompatActivity() {
             }
         }.start()
     }
-
-
 }

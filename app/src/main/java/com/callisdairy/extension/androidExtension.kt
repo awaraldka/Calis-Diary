@@ -21,12 +21,24 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.airbnb.lottie.LottieAnimationView
-import com.callisdairy.Interface.*
+import com.callisdairy.Interface.AddPetInterface
+import com.callisdairy.Interface.AsPerGoPay
+import com.callisdairy.Interface.CancelAppointmentInterface
+import com.callisdairy.Interface.CommonDialogInterface
+import com.callisdairy.Interface.DeleteClick
+import com.callisdairy.Interface.Finish
+import com.callisdairy.Interface.FinishBack
+import com.callisdairy.Interface.Logout
+import com.callisdairy.Interface.ReportPost
+import com.callisdairy.Interface.petProfile
 import com.callisdairy.R
 import com.callisdairy.UI.Activities.Login
 import com.callisdairy.Utils.DateFormat
-import com.callisdairy.Validations.FormValidations.finish
 import com.callisdairy.Utils.SavedPrefManager
+import com.callisdairy.Validations.FormValidations.finish
+import com.callisdairy.pdfreader.PdfQuality
+import com.callisdairy.pdfreader.PdfRendererView
+import com.callisdairy.pdfreader.PdfViewerActivity.Companion.engine
 
 object androidExtension {
 
@@ -442,6 +454,23 @@ object androidExtension {
         alertDialog = builder.create()
         alertDialog!!.setCancelable(false)
         alertDialog.show()
+    }
+
+
+    fun initPdfViewer(fileUrl: String,context: Context, certificateImage: PdfRendererView) {
+        if (fileUrl.isEmpty()) return alertBox("Please Upload Another Document",context)
+
+
+        try {
+            certificateImage.initWithUrl(
+                fileUrl,
+                PdfQuality.NORMAL,
+                engine
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
 
 

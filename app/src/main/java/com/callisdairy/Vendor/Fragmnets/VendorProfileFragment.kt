@@ -2,10 +2,10 @@ package com.callisdairy.Vendor.Fragmnets
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -17,8 +17,8 @@ import com.callisdairy.Utils.Resource
 import com.callisdairy.Utils.SavedPrefManager
 import com.callisdairy.Vendor.Activities.CommonContainerActivity
 import com.callisdairy.databinding.FragmentVendorProfileBinding
-import com.callisdairy.viewModel.VendorCommonViewModel
 import com.callisdairy.extension.androidExtension
+import com.callisdairy.viewModel.VendorCommonViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

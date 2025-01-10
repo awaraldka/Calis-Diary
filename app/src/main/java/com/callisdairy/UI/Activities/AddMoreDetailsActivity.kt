@@ -2,15 +2,14 @@ package com.callisdairy.UI.Activities
 
 import android.app.DatePickerDialog
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import com.callisdairy.R
 import com.callisdairy.Utils.DateFormat
 import com.callisdairy.databinding.ActivityAddMoreDetailsBinding
-import com.callisdairy.databinding.ActivityAddPetBinding
 import com.callisdairy.extension.setSafeOnClickListener
-import java.util.*
+import java.util.Calendar
 
 class AddMoreDetailsActivity : AppCompatActivity() {
 

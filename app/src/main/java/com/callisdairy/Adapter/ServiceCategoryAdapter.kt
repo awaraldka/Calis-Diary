@@ -9,12 +9,8 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.callisdairy.Interface.ServiceClick
-import com.callisdairy.ModalClass.MarketModalClass
-import com.callisdairy.ModalClass.productCategoryModalClass
-import com.callisdairy.ModalClass.serviceCategoryModalClass
 import com.callisdairy.R
 import com.callisdairy.api.response.ListCategoryDocs
-import com.callisdairy.databinding.CategoryItemBinding
 import com.callisdairy.databinding.ProductCategoryLayoutBinding
 
 class ServiceCategoryAdapter(val context:Context, var data:ArrayList<ListCategoryDocs>,val click: ServiceClick):RecyclerView.Adapter<ServiceCategoryAdapter.ViewHolder>() {

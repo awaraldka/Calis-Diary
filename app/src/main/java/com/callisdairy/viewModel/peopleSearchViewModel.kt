@@ -1,30 +1,23 @@
 package com.callisdairy.viewModel
 
 import android.app.Application
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.callisdairy.CalisApp
 import com.callisdairy.ModalClass.PojoClass
 import com.callisdairy.Repositry.CalisRespository
 import com.callisdairy.Utils.NetworkHelper
 import com.callisdairy.Utils.Resource
 import com.callisdairy.api.Constants
-import com.callisdairy.api.response.AddPostResponse
 import com.callisdairy.api.response.SearchPeopleResponse
-import com.callisdairy.api.response.TagPeopleResponse
 import com.google.gson.GsonBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
-import okhttp3.MultipartBody
 import retrofit2.Response
 import javax.inject.Inject
+
 @HiltViewModel
 class peopleSearchViewModel @Inject constructor(app: Application, private val repo: CalisRespository,private val networkHelper: NetworkHelper) : AndroidViewModel(app) {
 

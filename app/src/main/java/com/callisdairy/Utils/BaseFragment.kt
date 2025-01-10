@@ -1,17 +1,13 @@
 package com.callisdairy.Utils
 
 import android.app.Activity
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.PopupWindow
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
-import com.callisdairy.R
 
 abstract class BaseFragment : Fragment() {
 

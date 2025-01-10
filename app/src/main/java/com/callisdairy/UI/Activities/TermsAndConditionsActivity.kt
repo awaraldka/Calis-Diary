@@ -16,8 +16,8 @@ import com.callisdairy.R
 import com.callisdairy.Utils.Progresss
 import com.callisdairy.Utils.Resource
 import com.callisdairy.databinding.ActivityTermsAndConditionsBinding
-import com.callisdairy.viewModel.StaticContentViewModel
 import com.callisdairy.extension.androidExtension
+import com.callisdairy.viewModel.StaticContentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

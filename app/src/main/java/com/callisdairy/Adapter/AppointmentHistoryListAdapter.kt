@@ -9,14 +9,10 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.callisdairy.ModalClass.DoctorVetData
 import com.callisdairy.R
 import com.callisdairy.UI.Activities.CommonActivityForViewActivity
 import com.callisdairy.api.response.Appointment
-import com.callisdairy.api.response.VetOrDoctorDocs
 import com.callisdairy.databinding.DoctorListBinding
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class AppointmentHistoryListAdapter(
     private val context: Context,

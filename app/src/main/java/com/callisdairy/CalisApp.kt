@@ -2,24 +2,26 @@ package com.callisdairy
 
 import android.app.Application
 import android.content.Context
+import androidx.annotation.OptIn
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.database.DatabaseProvider
+import androidx.media3.database.ExoDatabaseProvider
+import androidx.media3.datasource.cache.LeastRecentlyUsedCacheEvictor
+import androidx.media3.datasource.cache.SimpleCache
 import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
-import com.google.android.exoplayer2.database.DatabaseProvider
-import com.google.android.exoplayer2.database.ExoDatabaseProvider
-import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor
-import com.google.android.exoplayer2.upstream.cache.SimpleCache
 import com.vanniktech.emoji.EmojiManager
 import com.vanniktech.emoji.google.GoogleEmojiProvider
 import dagger.hilt.android.HiltAndroidApp
 
 
-@HiltAndroidApp
+@UnstableApi @HiltAndroidApp
 class CalisApp : Application(){
 
     lateinit var context: Context
 
 
-    override fun onCreate() {
+    @OptIn(UnstableApi::class) override fun onCreate() {
         super.onCreate()
 
         context = applicationContext

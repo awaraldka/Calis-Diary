@@ -1,14 +1,9 @@
 package com.callisdairy.viewModel
 
 import android.app.Application
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.callisdairy.CalisApp
 import com.callisdairy.ModalClass.PojoClass
 import com.callisdairy.Utils.NetworkHelper
 import com.callisdairy.Utils.Resource

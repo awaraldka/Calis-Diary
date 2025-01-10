@@ -1,5 +1,6 @@
 package com.callisdairy.UI.Activities
 
+import RequestPermission
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -13,7 +14,6 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -28,12 +28,12 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.callisdairy.Adapter.CategoryTypeProfileAdapter
 import com.callisdairy.Adapter.openDialog
 import com.callisdairy.Interface.Finish
@@ -44,11 +44,10 @@ import com.callisdairy.Utils.*
 import com.callisdairy.Validations.FormValidations.AddPetProfile
 import com.callisdairy.api.response.CountryList
 import com.callisdairy.databinding.ActivityAddPetProfileBinding
+import com.callisdairy.extension.androidExtension
 import com.callisdairy.extension.setSafeOnClickListener
 import com.callisdairy.viewModel.SignUpViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.callisdairy.extension.androidExtension
-import com.theartofdev.edmodo.cropper.CropImage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
@@ -57,7 +56,6 @@ import java.io.FileInputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 @AndroidEntryPoint
@@ -476,8 +474,8 @@ class AddPetProfileActivity : AppCompatActivity(), PopupItemClickListener , Fini
                     imageFile = File(imagePath)
 
                     image = Uri.fromFile(imageFile)
-                    val intent = CropImage.activity(image).setInitialCropWindowPaddingRatio(0f).getIntent(this)
-                    cropImage.launch(intent)
+//                    val intent = CropImage.activity(image).setInitialCropWindowPaddingRatio(0f).getIntent(this)
+//                    cropImage.launch(intent)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -491,8 +489,8 @@ class AddPetProfileActivity : AppCompatActivity(), PopupItemClickListener , Fini
             if (result.resultCode == Activity.RESULT_OK) {
                 try {
                     image = result.data?.data!!
-                    val intent = CropImage.activity(image).setInitialCropWindowPaddingRatio(0f).getIntent(this)
-                    cropImage.launch(intent)
+//                    val intent = CropImage.activity(image).setInitialCropWindowPaddingRatio(0f).getIntent(this)
+//                    cropImage.launch(intent)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -502,29 +500,29 @@ class AddPetProfileActivity : AppCompatActivity(), PopupItemClickListener , Fini
         }
 
 
-    private val cropImage = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                try {
-                    val data: Intent? = result.data
-                    val resultImage = CropImage.getActivityResult(data)
-                    val newUri = resultImage.uri
-
-                    val getRealPath = ImageRotation.getRealPathFromURI2(this, newUri!!)
-                    val finalBitmap = ImageRotation.modifyOrientation(getBitmap(getRealPath)!!, getRealPath)
-                    imageFile = getRealPath?.let { File(it) }
-
-                    petPic = finalBitmap?.let { bitmapToString(it) }.toString()
-                    Glide.with(this).load(imageFile).into(binding.imgPetProfile)
-                    USER_IMAGE_UPLOADED_PET = true
-
-
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-
-
-            }
-        }
+//    private val cropImage = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+//            if (result.resultCode == Activity.RESULT_OK) {
+//                try {
+//                    val data: Intent? = result.data
+//                    val resultImage = CropImage.getActivityResult(data)
+//                    val newUri = resultImage.uri
+//
+//                    val getRealPath = ImageRotation.getRealPathFromURI2(this, newUri!!)
+//                    val finalBitmap = ImageRotation.modifyOrientation(getBitmap(getRealPath)!!, getRealPath)
+//                    imageFile = getRealPath?.let { File(it) }
+//
+//                    petPic = finalBitmap?.let { bitmapToString(it) }.toString()
+//                    Glide.with(this).load(imageFile).into(binding.imgPetProfile)
+//                    USER_IMAGE_UPLOADED_PET = true
+//
+//
+//                } catch (e: Exception) {
+//                    e.printStackTrace()
+//                }
+//
+//
+//            }
+//        }
 
 
 

@@ -10,7 +10,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.callisdairy.Interface.PetListener
 import com.callisdairy.Interface.ViewPetFromProfile
 import com.callisdairy.R
 import com.callisdairy.UI.Activities.AddPetActivity

@@ -10,10 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.callisdairy.Interface.AppointmentListener
 import com.callisdairy.Interface.GetTime
-import com.callisdairy.Utils.DateFormat
 import com.callisdairy.api.response.AppointmentDateResult
 import com.callisdairy.databinding.SelectADateModalClassBinding
-import java.util.*
 
 
 class SelectADateAdaptor(

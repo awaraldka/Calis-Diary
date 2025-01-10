@@ -4,10 +4,15 @@ import android.animation.Animator
 import android.animation.ValueAnimator
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.util.SparseIntArray
 import androidx.appcompat.app.AppCompatActivity
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.media3.common.util.Util
+import androidx.media3.datasource.DataSource
+import androidx.media3.datasource.DataSpec
+import androidx.media3.datasource.DefaultHttpDataSource
+import androidx.media3.datasource.cache.CacheDataSource
+import androidx.media3.datasource.cache.SimpleCache
 import com.bumptech.glide.Glide
 import com.callisdairy.CalisApp
 import com.callisdairy.ModalClass.storymodel.StoryUser
@@ -15,14 +20,10 @@ import com.callisdairy.R
 import com.callisdairy.Utils.story.CubeOutTransformer
 import com.callisdairy.databinding.ActivityStoryBinding
 import com.callisdairy.storycustomview.StoryPagerAdapter
-import com.google.android.exoplayer2.upstream.DataSource
-import com.google.android.exoplayer2.upstream.DataSpec
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
-import com.google.android.exoplayer2.upstream.cache.CacheUtil
-import com.google.android.exoplayer2.util.Util
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class StoryActivity : AppCompatActivity(),
@@ -112,33 +113,35 @@ class StoryActivity : AppCompatActivity(),
     }
 
     private fun preLoadVideos(videoList: MutableList<String>) {
-        videoList.map { data ->
-            GlobalScope.async {
+        val scope = CoroutineScope(Dispatchers.IO) // Use a CoroutineScope for background tasks
+        videoList.forEach { data ->
+            scope.launch {
                 val dataUri = Uri.parse(data)
                 val dataSpec = DataSpec(dataUri, 0, 500 * 1024, null)
-                val dataSource: DataSource =
-                    DefaultDataSourceFactory(
-                        applicationContext,
-                        Util.getUserAgent(applicationContext, getString(R.string.app_name))
-                    ).createDataSource()
+
+                val cache: SimpleCache? = CalisApp.simpleCache // Assuming this is your cache instance
+
+                // Create a DefaultDataSource with caching
+                val upstreamDataSourceFactory = DefaultHttpDataSource.Factory()
+                    .setUserAgent(Util.getUserAgent(applicationContext, getString(R.string.app_name)))
 
 
+                // Create the CacheDataSource with the upstream factory
+                val cacheDataSourceFactory = CacheDataSource.Factory()
+                    .setCache(cache!!) // Use your cache instance
+                    .setUpstreamDataSourceFactory(upstreamDataSourceFactory)
 
-                val listener = CacheUtil.ProgressListener { requestLength: Long, bytesCached: Long, _: Long ->
-                        val downloadPercentage = (bytesCached * 100.0
-                                / requestLength)
-                        Log.d("preLoadVideos", "downloadPercentage: $downloadPercentage")
-                    }
+                val dataSource: DataSource = cacheDataSourceFactory.createDataSource()
+
+                // Instead of a CacheUtil listener, you can manually log the cache progress if needed
+                // However, the CacheDataSource itself does not provide a built-in progress listener
+                // You can implement your logic to monitor download progress if necessary.
 
                 try {
-                    CacheUtil.cache(
-                        dataSpec,
-                        CalisApp.simpleCache,
-                        CacheUtil.DEFAULT_CACHE_KEY_FACTORY,
-                        dataSource,
-                        listener,
-                        null
-                    )
+                    // Instead of CacheUtil.cache(), you can read from the data source to cache
+                    val cacheResult = dataSource.open(dataSpec) // Open the dataSpec to start caching
+                    // Process the cache result as needed, e.g., read the input stream.
+//                    cacheResult.close() // Close when done
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

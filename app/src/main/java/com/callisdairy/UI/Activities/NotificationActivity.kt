@@ -1,11 +1,9 @@
 package com.callisdairy.UI.Activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
 import com.callisdairy.Adapter.NotificationAdapter
 import com.callisdairy.ModalClass.NotificationModelClass
-import com.callisdairy.R
 import com.callisdairy.databinding.ActivityNotificationBinding
 import com.callisdairy.extension.setSafeOnClickListener
 

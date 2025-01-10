@@ -1,7 +1,5 @@
 package com.callisdairy.ModalClass
 
-import bolts.Bolts
-
 class CommentsModelClass (
     var Image : Int,
     var Image2: Int,

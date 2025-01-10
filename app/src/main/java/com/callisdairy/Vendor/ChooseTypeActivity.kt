@@ -1,13 +1,12 @@
 package com.callisdairy.Vendor
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.callisdairy.R
 import com.callisdairy.UI.Activities.Login
 import com.callisdairy.Vendor.Activities.VendorLoginActivity
 import com.callisdairy.databinding.ActivityChooseTypeBinding
-import com.callisdairy.databinding.ActivityVendorContainerBinding
 
 class ChooseTypeActivity : AppCompatActivity() {
 

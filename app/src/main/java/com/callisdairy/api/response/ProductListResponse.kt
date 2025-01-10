@@ -1,7 +1,6 @@
 package com.callisdairy.api.response
 
 import com.google.gson.annotations.SerializedName
-import java.util.Currency
 
 class ProductListResponse(
     @SerializedName("result") val result : ProductListResult,

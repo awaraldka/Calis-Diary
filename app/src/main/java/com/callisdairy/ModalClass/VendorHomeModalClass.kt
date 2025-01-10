@@ -1,8 +1,5 @@
 package com.callisdairy.ModalClass
 
-import com.callisdairy.api.request.documents
-import com.callisdairy.api.response.PetImage
-import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 class VendorHomeModalClass(

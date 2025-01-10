@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
+import androidx.media3.common.Player
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -32,7 +33,6 @@ import com.callisdairy.api.response.HomePageDocs
 import com.callisdairy.api.response.suggestionListDocs
 import com.callisdairy.databinding.HomePostModellayoutBinding
 import com.callisdairy.extension.setSafeOnClickListener
-import com.google.android.exoplayer2.Player
 
 
 class HomePostAdapter(
@@ -61,8 +61,6 @@ class HomePostAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = HomePostModellayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-
-
         return ViewHolder(binding)
     }
 
@@ -71,7 +69,10 @@ class HomePostAdapter(
         if (payloads.isNotEmpty() && payloads[0] == "liked") {
             val dataItem = dataList[position]
             with(holder.binding) {
+                // Update like/unlike count
                 likeCountText.text = dataItem.likeCount.toString()
+
+                // Update like/unlike button visibility
                 val isLiked = dataItem.isLiked
                 likePost.isVisible = isLiked
                 likePostText.isVisible = isLiked
@@ -79,9 +80,11 @@ class HomePostAdapter(
                 UnlikePostText.isVisible = !isLiked
             }
         } else {
+            // Full update if there's no payload or for the first bind
             super.onBindViewHolder(holder, position, payloads)
         }
     }
+
 
 
     override fun onViewRecycled(holder: ViewHolder) {
@@ -190,7 +193,7 @@ class HomePostAdapter(
             dataList[position].also {
 
 
-                            if (dataList.size > 4 && Home.suggestedUserData.isNotEmpty()){
+                if (dataList.size > 4 && Home.suggestedUserData.isNotEmpty()){
                 if (position == 5){
 
                     holder.binding.suggestionUserList.isVisible = true

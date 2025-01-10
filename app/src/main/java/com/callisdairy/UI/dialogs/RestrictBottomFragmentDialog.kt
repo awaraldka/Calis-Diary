@@ -7,13 +7,10 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.annotation.Nullable
-import com.callisdairy.Interface.FollowDialogListener
 import com.callisdairy.Interface.RestrictDialogListener
 import com.callisdairy.R
 import com.callisdairy.extension.setSafeOnClickListener
-
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-
 
 
 class RestrictBottomFragmentDialog(var restrictDialogListener : RestrictDialogListener) : BottomSheetDialogFragment() {
